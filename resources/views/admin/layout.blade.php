@@ -18,9 +18,9 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
 </head>
 <body class="lang-pl">
 <div id="admin">
@@ -55,10 +55,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- jQuery -->
-<script src="/js/jquery.min.js" charset="utf-8"></script>
-<script src="/js/bootstrap.bundle.min.js" charset="utf-8"></script>
-<script src="/js/jquery-ui.min.js" charset="utf-8"></script>
-<script src="/js/cms.js" charset="utf-8"></script>
+<script src="{{ asset('/js/jquery.min.js') }}" charset="utf-8"></script>
+<script src="{{ asset('/js/bootstrap.bundle.min.js') }}" charset="utf-8"></script>
+<script src="{{ asset('/js/jquery-ui.min.js') }}" charset="utf-8"></script>
+<script src="{{ asset('/js/cms.js') }}" charset="utf-8"></script>
 
 @stack('scripts')
 
