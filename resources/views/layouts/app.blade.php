@@ -18,8 +18,8 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
 
     <!-- jQuery -->
     <script src="/js/jquery.min.js" charset="utf-8"></script>
