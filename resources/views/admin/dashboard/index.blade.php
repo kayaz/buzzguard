@@ -33,7 +33,7 @@
         </div>
     </div>
     @push('scripts')
-        <script src="/js/bootstrap3-typeahead.min.js"></script>
+        <script src="{{ asset('/js/bootstrap3-typeahead.min.js') }}" charset="utf-8"></script>
         <script>
             $(document).ready(function(){
                 let route = "/admin/autocomplete";

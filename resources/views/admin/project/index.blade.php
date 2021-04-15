@@ -106,8 +106,7 @@
                                             </tbody>
                                         </table>
                                         @push('scripts')
-                                            <script src="/js/jquery.dataTables.min.js"></script>
-
+                                            <script src="{{ asset('/js/jquery.dataTables.min.js') }}" charset="utf-8"></script>
                                             <script>
                                                 $(function () {
                                                     $.fn.dataTable.ext.errMode = 'none';
