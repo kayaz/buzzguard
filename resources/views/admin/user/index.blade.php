@@ -62,6 +62,8 @@
                                 <td>{{ $p->updated_at }}</td>
                                 <td class="option-120">
                                     <div class="btn-group">
+                                        <a href="{{route('admin.user.show', $p)}}" class="btn action-button mr-1" data-toggle="tooltip" data-placement="top" title="Pokaż profil"><i class="fe-user"></i></a>
+                                        <a href="#" class="btn action-button mr-1" data-toggle="tooltip" data-placement="top" title="Zablokuj profil"><i class="fe-lock"></i></a>
                                         <a href="{{route('admin.user.edit', $p)}}" class="btn action-button mr-1" data-toggle="tooltip" data-placement="top" title="Edytuj"><i class="fe-edit"></i></a>
                                         <form method="POST" action="{{route('admin.user.destroy', $p)}}">
                                             {{ csrf_field() }}

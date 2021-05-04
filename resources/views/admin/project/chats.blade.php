@@ -2,26 +2,18 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-head container-fluid">
-                <div class="row">
-                    <div class="col-6 pl-0">
-                        <h4 class="page-title row"><i class="fe-users"></i>Projekty</h4>
-                    </div>
-                    <div class="col-6 d-flex justify-content-end align-items-center form-group-submit">
-                        <a href="#" class="btn btn-primary">Dodaj projekt</a>
-                    </div>
-                </div>
-            </div>
-
-            @include('admin.submenu')
-        </div>
+        @include('admin.submenu')
         <div class="row">
             <div class="col-3 col-xl-2">
                 <div class="card mt-3">
                     <div class="card-body card-body-rem p-0">
                         <div class="table-overflow p-5">
                             <div class="about-project">
+                                <div class="btn-group mb-3 w-100" role="group">
+                                    <a href="{{ route('admin.project.edit', $project->id) }}" class="btn btn-sm btn-outline-primary"><i class="fe-list"></i> Edytuj</a>
+                                    <a href="#" class="btn btn-sm btn-outline-primary"><i class="fe-pie-chart"></i> Usuń</a>
+                                </div>
+
                                 <ul class="list-group">
                                     @if($project->client->client_name)<li class="list-group-item">Klient: <div class="float-right">{{$project->client->client_name}}</div></li>@endif
                                     <li class="list-group-item">Ile dni trwa projekt: <div class="float-right">{{$project->days}}</div></li>

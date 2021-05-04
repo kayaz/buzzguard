@@ -2,20 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-head container-fluid">
-                <div class="row">
-                    <div class="col-6 pl-0">
-                        <h4 class="page-title row"><i class="fe-users"></i>Projekty</h4>
-                    </div>
-                    <div class="col-6 d-flex justify-content-end align-items-center form-group-submit">
-                        <a href="#" class="btn btn-primary">Dodaj projekt</a>
-                    </div>
-                </div>
-            </div>
-
-            @include('admin.submenu')
-        </div>
+        @include('admin.submenu')
         <div class="card mt-3">
             <div class="card-body card-body-rem p-0">
                 <div class="table-overflow p-5">
@@ -38,7 +25,7 @@
                                     @foreach($yearprojects as $pr)
                                         <tr>
                                             <td><a href="{{ route('admin.project.show', $pr->id) }}">{{$pr->name}}</a></td>
-                                            <td class="text-center">{{$pr->client_id}}</td>
+                                            <td class="text-center">{{ $pr->client->name ?? "-" }}</td>
                                             <td class="text-center">{{$pr->date_start}}</td>
                                             <td class="text-center">{{$pr->date_end}}</td>
                                             <td class="text-center">{!! status($pr->status) !!}</td>

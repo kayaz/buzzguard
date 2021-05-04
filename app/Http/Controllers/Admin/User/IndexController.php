@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserFormRequest;
 
+use App\Models\Project;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +46,12 @@ class IndexController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect(route('admin.user.index'))->with('success', 'Użytkownik dodany');
+    }
+
+    public function show(User $user)
+    {
+        $projects = $user->userProjects()->get();
+        return view('admin.user.show', ['projects' => $projects, 'user' => $user]);
     }
 
     public function edit($id)

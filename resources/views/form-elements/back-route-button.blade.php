@@ -1,3 +1,3 @@
 @if($backButton)
-    <a href="{{ $backButton }}" class="back">Wróć do listy</a>
+    <a href="{{ $backButton }}" class="back">Wróć</a>
 @endif

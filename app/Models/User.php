@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -23,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'active'
+        'active',
+        'client'
     ];
 
     /**
@@ -47,5 +49,11 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->belongsToMany(Project::class);
+    }
+
+    public function userProjects()
+    {
+        //return $this->hasManyThrough(Project::class, UserProject::class, 'user_id', 'id', 'id', 'project_id');
+        return $this->belongsToMany(Project::class)->using(ProjectUser::class)->orderByDesc('projects.year');
     }
 }
