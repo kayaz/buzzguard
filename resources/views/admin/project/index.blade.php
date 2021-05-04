@@ -189,7 +189,7 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="/js/fineuploader.js" charset="utf-8"></script>
+    <script src="/public/js/fineuploader.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(window).on('shown.bs.modal', function () {
             $('#bootstrapmodal').modal('show');
