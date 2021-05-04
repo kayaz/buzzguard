@@ -67,7 +67,7 @@
                                 @foreach($files as $file)
                                     <li class="list-group-item">
                                         <a href="{{route('admin.project.deletefile', $file->id)}}" class="btn btn-sm"><i class="fe-trash"></i></a>
-                                        <a href="/uploads/projects/files/{{ $file->file }}" target="_blank" title="{{$file->name}}">
+                                        <a href="/public/uploads/projects/files/{{ $file->file }}" target="_blank" title="{{$file->name}}">
                                             <i class="fe-file-{{$file->icon}}"></i> {{ truncateMiddle($file->name, 30) }}
                                         </a>
                                     </li>
