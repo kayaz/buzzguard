@@ -32,8 +32,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(Settings::class, function () {
             return Settings::make(storage_path('app/settings.json'));
         });
-    }
 
+        $this->app->bind(
+            'App\Repositories\ChatRepositoryInterface',
+            'App\Repositories\ChatRepository'
+        );
+        $this->app->bind(
+            'App\Repositories\PostRepositoryInterface',
+            'App\Repositories\PostRepository'
+        );
+    }
     /**
      * Bootstrap any application services.
      *

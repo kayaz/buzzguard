@@ -22,7 +22,6 @@ class IndexController extends Controller
         ])->with('entry', Greylist::make());
     }
 
-
     public function store(GreylistFormRequest $request)
     {
         Greylist::create($request->except(['_token', 'submit']));

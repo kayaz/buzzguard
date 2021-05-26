@@ -7,9 +7,20 @@
             <div class="card-body card-body-rem p-0">
                 <div class="table-overflow p-5">
                     <div class="container p-0">
-                        <div class="row no-gutters">
-                            <div class="col-12">
-                                <h2 class="mb-5"><i class="fe-lock"></i> Projekty użytkownika: {{ $user->surname }} {{ $user->name }}</h2>
+                        <div class="row">
+                            <div class="col-3 text-center">
+                                <div class="d-flex justify-content-center">
+                                    <span class="user-rounded-circle">
+                                        @if($user->name && $user->surname)
+                                            {!! mb_substr($user->name, 0, 1, 'UTF-8') !!}{!! mb_substr($user->surname, 0, 1, 'UTF-8') !!}
+                                        @else
+                                            <i class="fe-user"></i>
+                                        @endif
+                                    </span>
+                                </div>
+                                <h2>{{ $user->surname }} {{ $user->name }}</h2>
+                            </div>
+                            <div class="col-9">
                                 <table class="table data-table mb-0 w-100" id="sortable">
                                     <thead class="thead-default">
                                     <tr>

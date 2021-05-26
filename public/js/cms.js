@@ -120,10 +120,9 @@ $(document).ready(function(){
 
     $(".confirm").click(function(d) {
         d.preventDefault();
-        var c = $(this).closest("form");
-        var a = c.attr("action");
-        var f = $(this).data("id");
-        var b = $("meta[name='csrf-token']").attr("content");
+        const c = $(this).closest("form");
+        const a = c.attr("action");
+        const b = $("meta[name='csrf-token']").attr("content");
         $.confirm({
             title: "Potwierdzenie usunięcia",
             message: "Czy na pewno chcesz usunąć?",
@@ -141,6 +140,37 @@ $(document).ready(function(){
                                 location.reload();
                             }
                         })
+                    }
+                },
+                Nie: {
+                    "class": "btn btn-secondary",
+                    action: function() {}
+                }
+            }
+        })
+    });
+
+    $(".confirmForm").click(function(d) {
+        d.preventDefault();
+        const c = $(this).closest("form");
+        const a = c.attr("action");
+        const b = $("meta[name='csrf-token']").attr("content");
+        $.confirm({
+            title: "Potwierdzenie usunięcia",
+            message: "Czy na pewno chcesz usunąć?",
+            buttons: {
+                Tak: {
+                    "class": "btn btn-primary",
+                    action: function() {
+                        $.ajax({
+                            url: a,
+                            type: "DELETE",
+                            data: {
+                                _token: b,
+                            }
+                        }).done(function( data ) {
+                            location.href = data.href;
+                        });
                     }
                 },
                 Nie: {

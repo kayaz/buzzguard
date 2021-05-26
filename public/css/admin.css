@@ -398,7 +398,8 @@ p {margin:0}
     border: 0;
     margin-bottom: 4px;
 }
-.about-project span, .list-files a.btn.btn-sm {
+.about-project span,
+.list-files a.btn.btn-sm {
     width: 30px;
     height: 30px;
     border-radius: 50% !important;
@@ -483,7 +484,9 @@ p {margin:0}
 .form-group-submit .btn,
 #login .btn,
 .btn.btn-upload,
-.card-title .btn-back
+.card-title .btn-back,
+.forum-single-content .btn,
+.btn.btn-primary
 {
     padding: 8px 23px;
     border-radius: 3px;
@@ -493,13 +496,22 @@ p {margin:0}
     font-size: 14px;
     font-weight: 500;
 }
+.btn.btn-primary i {
+    margin-right: 10px;
+    font-weight: 400
+}
+.btn.btn-lg {
+    font-size: 18px;
+    padding: 13px 23px;
+}
 .form-group-submit .btn:hover,
 #login .btn:hover,
 .card-title .btn-back:hover,
 .btn.btn-upload:hover,
 .form-group-submit .btn:active,
 #login .btn:active,
-.card-title .btn-back:active
+.card-title .btn-back:active,
+.btn.btn-lg:hover
 {
     background:#008595;
     color:white
@@ -573,10 +585,167 @@ p {margin:0}
     background: #f5f5f5;
     font-weight: 400;
     color: #545454;
-    margin: 0;
     font-size: 20px;
     padding: 20px 30px;
     margin: 1rem -20px;
+}
+
+/* Pagination
+================================================== */
+.pagination {
+    justify-content: center;
+    margin:15px 0 0
+}
+.page-link {
+    position: relative;
+    display: block;
+    padding: 8px 13px;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #222;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #00acc1;
+    border-color: #00acc1
+}
+.page-link:focus {
+    box-shadow: 0 0 0 0 rgba(0,123,255,.25);
+}
+
+/* Q&A
+================================================== */
+#content .topic_list li .media-body h4 {
+    font-size: 19px;
+    font-weight: 500;
+    margin:0 0 1px;
+    display: inline-block;
+    color: #00acc1
+}
+#content .topic_list li .media-body h6 {
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #838793;
+    font-weight: 400;
+    margin-right: 16px
+}
+
+.topic_list {
+    border: 1px solid #eaeeef
+}
+.topic_list li {
+    border-bottom: 1px solid #eaeeef;
+    padding: 18px 20px
+}
+.topic_list li:last-child {
+    border-bottom: 0
+}
+
+.topic_list li .media {
+    align-items: center;
+}
+.topic_list li .media .d-flex {
+    padding-right: 18px;
+}
+.topic_list li .media .rounded-circle,
+.forum-post-top .rounded-circle,
+.user-rounded-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50% !important;
+    background: #181c32;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.user-rounded-circle {
+    width: 100px;
+    height: 100px;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+.topic_list li .media .media-right {
+    vertical-align: middle;
+    padding-right: 12px;
+}
+.topic_list li .media .media-right .count {
+    display: inline-block;
+    margin-left: 40px;
+    font-size: 16px;
+    color: #868b99;
+    font-weight: 400;
+    transition: all 300ms linear 0s;
+}
+
+.forum-post-top {
+    display: flex;
+}
+.forum-single-q, .forum-post-content, .forum-post-footer {padding-left: 70px}
+.forum-post-content {
+    line-height: 29px;
+    font-size: 16px;
+    color: #424242;
+}
+.forum-single-q h1 {
+    font-size: 26px;
+    margin: 25px 0 20px;
+}
+.forum-author-meta {
+    color: #717171
+}
+.forum-comment, .forum-single-content {
+    padding: 35px 25px;
+    border-bottom: 1px solid #e8ecee;
+}
+.forum-comment:last-child {
+    border:0
+}
+.forum-post-footer {
+    padding-top: 18px;
+    display: none;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    align-items: center;
+}
+.forum-comment:hover .forum-post-footer {
+    display: flex;
+}
+.forum-comment:hover {
+    background: #f7f7f7
+}
+.forum-comment.forum-comment-helpful,
+.forum-comment.forum-comment-helpful:hover {
+    background: #f1fdf3
+}
+.forum-post-footer a, .forum-single-footer a {
+    border: 1px solid #dfdfdf;
+    padding: 3px 14px;
+    margin-right: 9px;
+    background: white;
+    font-size: 13px
+}
+.forum-single-content .btn.action-button.confirmForm,
+.forum-post-footer .btn.action-button.confirmForm {
+    padding: 0 14px;
+    font-size: 13px;
+    border-radius: 0 !important;
+    height: 27px;
+}
+.forum-post-footer a:hover {
+    color: white;
+    border-color: #00acc1;
+    background: #00acc1;
+}
+.accepted-ans-mark {
+    color: #0f7916;
+    text-align: right;
+    font-size: 14px;
 }
 
 /* Sortable

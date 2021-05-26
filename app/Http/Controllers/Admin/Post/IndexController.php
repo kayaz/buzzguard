@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Post;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use App\Models\User;
 use DataTables;
 
 class IndexController extends Controller
@@ -17,6 +16,9 @@ class IndexController extends Controller
         return Datatables::of($posts)
             ->addColumn('user_id', function (Post $post) {
                 return $post->users->surname.' '.$post->users->name;
+            })
+            ->addColumn('actions', function ($row) {
+                return view('admin.project.datatables.actions', ['row' => $row]);
             })
             ->editColumn('url', function ($row){
                 return '<a href="'.$row->url.'" target="_blank"><i class="fe-link"></i></a>';
@@ -36,7 +38,7 @@ class IndexController extends Controller
             ->editColumn('sentiment', function ($row){
                 return sentiment($row->sentiment);
             })
-            ->rawColumns(['thread', 'reaction', 'seo', 'age_group', 'sentiment', 'url'])
+            ->rawColumns(['thread', 'reaction', 'seo', 'age_group', 'sentiment', 'url', 'actions'])
             ->make(true);
     }
 
