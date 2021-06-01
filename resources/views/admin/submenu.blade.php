@@ -47,7 +47,7 @@
                     @endforeach
                 </ul>
             </li>
-            <li><a class="nav-link" href=""><span class="fe-briefcase"></span>Moje projekty</a></li>
+            <li><a class="nav-link" href="{{ route('admin.project.private.index') }}"><span class="fe-briefcase"></span>Moje projekty</a></li>
         </ul>
     </div>
 </div>

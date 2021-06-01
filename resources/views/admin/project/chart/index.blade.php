@@ -80,12 +80,6 @@
                     @endforeach
                 ]);
                 const chart2_options = {
-                    hAxis: {
-                        title: 'Źródło'
-                    },
-                    vAxis: {
-                        title: 'Ilość wpisów'
-                    },
                     colors: ['#00acc1'],
                     chartArea: { width: "100%", height: "60%" }
                 };
