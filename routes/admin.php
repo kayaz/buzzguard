@@ -43,6 +43,10 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
         Route::get('{project}',     'Post\IndexController@show')->name('show');
     });
 
+    Route::group(['prefix'=>'/privatepost', 'as' => 'privatepost.'], function() {
+        Route::get('{project}',     'PrivateProject\AjaxController@show')->name('show');
+    });
+
     Route::group(['prefix'=>'/userproject', 'as' => 'userproject.'], function() {
         Route::get('/create/{project}',                 'UserProject\IndexController@create')->name('create');
         Route::post('/store',                           'UserProject\IndexController@store')->name('store');
@@ -51,6 +55,14 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
 
     // Project
     Route::group(['prefix'=>'/project', 'as' => 'project.', 'middleware' => 'checkProject'], function() {
+
+        Route::get('private',                   'PrivateProject\IndexController@index')->name('private.index');
+        Route::get('private/create',            'PrivateProject\IndexController@create')->name('private.create');
+        Route::post('private/store',            'PrivateProject\IndexController@store')->name('private.store');
+        Route::get('private/{project}/edit',    'PrivateProject\IndexController@edit')->name('private.edit');
+        Route::put('private/{project}',         'PrivateProject\IndexController@update')->name('private.update');
+        Route::get('private/{project}',         'PrivateProject\IndexController@show')->name('private.show');
+
         Route::get('create',            'Project\IndexController@create')->name('create');
         Route::post('store',            'Project\IndexController@store')->name('store');
         Route::get('{project}/edit',    'Project\IndexController@edit')->name('edit');
@@ -90,6 +102,13 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
         Route::get('{project}/posts/{post}/edit',   'Project\PostController@edit')->name('post.edit');
         Route::put('posts/{post}',                  'Project\PostController@update')->name('post.update');
         Route::delete('/posts/{post}',              'Project\PostController@destroy')->name('post.destroy');
+
+        // Project - Private Post
+        Route::get('private/{project}/posts/create',        'PrivateProject\PostController@create')->name('private.post.create');
+        Route::post('private/{project}/posts',              'PrivateProject\PostController@store')->name('private.post.store');
+        Route::get('private/{project}/posts/{post}/edit',   'PrivateProject\PostController@edit')->name('private.post.edit');
+        Route::put('private/posts/{post}',                  'PrivateProject\PostController@update')->name('private.post.update');
+        Route::delete('private/posts/{post}',              'PrivateProject\PostController@destroy')->name('private.post.destroy');
 
         Route::get('{project}/posts/{post}/move',   'Project\PostMoveController@edit')->name('post.move');
         Route::put('{post}/moved',                  'Project\PostMoveController@update')->name('post.moved');
