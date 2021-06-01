@@ -1,11 +1,18 @@
 <?php
 
 if (! function_exists('dayName')) {
-    function dayName($format, $timestamp)
+    function dayName($date)
     {
-        $arrLocales = array('pl_PL', 'pl', 'Polish_Poland.28592');
-        setlocale( LC_ALL, $arrLocales );
+        $days = array(
+            'Niedziela',
+            'Poniedziałek',
+            'Wtorek',
+            'Środa',
+            'Czwartek',
+            'Piątek',
+            'Sobota'
+        );
 
-        return iconv("ISO-8859-2", "UTF-8",ucfirst(strftime($format, $timestamp)));
+        return $days[date('w', strtotime($date))];
     }
 }

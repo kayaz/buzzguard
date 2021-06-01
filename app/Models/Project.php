@@ -33,6 +33,15 @@ class Project extends Model
         return $this->hasMany(Post::class, 'project_id', 'id');
     }
 
+    public function stats_posts()
+    {
+        return $this->hasMany(Post::class, 'project_id', 'id');
+    }
+
+
+    //$db->select()->from('posty', array('*',' count(posty.data_tag) as num'))->group('data_tag')
+
+
     public function files()
     {
         return $this->hasMany(ProjectFile::class, 'project_id', 'id');

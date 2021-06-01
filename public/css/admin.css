@@ -193,7 +193,7 @@ p {margin:0}
 }
 
 .calendar li {border-bottom:1px solid #e1e3e4;padding:20px 0}
-.calendar-day {display:inline-block;border-right:1px solid #e1e3e4;padding-right:20px;margin-right:20px;width:110px}
+.calendar-day {border-right:1px solid #e1e3e4}
 .calendar span {display:inline-block;padding:0 10px 0 0}
 .calendar span:before {font-family:FontAwesome;content:"\f007";margin-right:5px}
 
