@@ -23,12 +23,30 @@
                     <th class="text-center">Sentyment</th>
                     <th class="text-center">Reakcja</th>
                     <th class="text-center">Wiek</th>
-                    <th class="text-center"></th>
+                    <th class="text-center" style="width:170px !important"></th>
                 </tr>
                 </thead>
                 <tbody class="content">
                 </tbody>
             </table>
+
+            <!-- Modal -->
+            <div class="modal fade" id="empModal" role="dialog" aria-labelledby="postlabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                         <div class="modal-header">
+                            <h5 class="modal-title mb-0" id="postlabel">Podgląd wpisu</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="fe-x-square"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             @push('scripts')
                 <script src="{{ asset('/js/jquery.dataTables.min.js') }}" charset="utf-8"></script>

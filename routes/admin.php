@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
 
     Route::group(['prefix'=>'/post', 'as' => 'post.'], function() {
         Route::get('{project}',     'Post\IndexController@show')->name('show');
+        Route::post('modal',  'Post\IndexController@modal')->name('modal');
     });
 
     Route::group(['prefix'=>'/privatepost', 'as' => 'privatepost.'], function() {

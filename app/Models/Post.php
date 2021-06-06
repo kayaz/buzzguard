@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -29,7 +30,8 @@ class Post extends Model
         'content',
         'additional',
         'category',
-        'seo'
+        'seo',
+        'file'
     ];
 
     public function users()
@@ -37,4 +39,31 @@ class Post extends Model
         return $this->belongsTo(User::class,'user_id','id');
     }
 
+    public function upload($title, $file, $old_file = null)
+    {
+        if ($old_file) {
+
+            $file_path = public_path('uploads/posts/' . $old_file);
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
+        }
+
+        $name = Str::slug($title, '-') . '_' . Str::random(12) . '.' .$file->getClientOriginalExtension();
+        $file->storeAs('posts', $name, 'public_uploads');
+        $this->update(['file' => $name ]);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($post) {
+            if ($post->file) {
+                $file_path = public_path('posts/' . $post->file);
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                }
+            }
+        });
+    }
 }

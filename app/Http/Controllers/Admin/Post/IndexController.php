@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Post;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use DataTables;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -40,6 +41,12 @@ class IndexController extends Controller
             })
             ->rawColumns(['thread', 'reaction', 'seo', 'age_group', 'sentiment', 'url', 'actions'])
             ->make(true);
+    }
+
+    public function modal(Request $request)
+    {
+        $id = $request->get('id');
+        return view('admin.project.post.modal', Post::find($id))->render();
     }
 
 }
