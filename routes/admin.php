@@ -63,6 +63,7 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
         Route::get('private/{project}/edit',    'PrivateProject\IndexController@edit')->name('private.edit');
         Route::put('private/{project}',         'PrivateProject\IndexController@update')->name('private.update');
         Route::get('private/{project}',         'PrivateProject\IndexController@show')->name('private.show');
+        Route::delete('private/{project}',      'PrivateProject\IndexController@destroy')->name('private.destroy');
 
         Route::get('create',            'Project\IndexController@create')->name('create');
         Route::post('store',            'Project\IndexController@store')->name('store');

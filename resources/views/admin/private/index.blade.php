@@ -33,7 +33,7 @@
                                             <td class="option-120">
                                                 <div class="btn-group">
                                                     <a href="{{route('admin.project.private.edit', $p->id)}}" class="btn action-button mr-1" data-toggle="tooltip" data-placement="top" title="Edytuj wpis"><i class="fe-edit"></i></a>
-                                                    <form method="POST" action="#">
+                                                    <form method="POST" action="{{route('admin.project.private.destroy', $p->id)}}">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         <button type="submit" class="btn action-button confirm" data-toggle="tooltip" data-placement="top" title="Usuń wpis" data-id="{{ $p->id }}"><i class="fe-trash-2"></i></button>

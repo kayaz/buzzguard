@@ -9,6 +9,7 @@ use App\Models\Year;
 use App\Models\MyProject;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
@@ -33,7 +34,7 @@ class IndexController extends Controller
 
     public function store(PrivateFormRequest $request)
     {
-        $id = MyProject::create(array_merge($request->except(['_token', 'submit']), ['user_id' => Auth::id()]));
+        MyProject::create(array_merge($request->except(['_token', 'submit']), ['user_id' => Auth::id()]));
         return redirect(route('admin.project.private.index'));
     }
 
@@ -64,4 +65,11 @@ class IndexController extends Controller
         ]);
     }
 
+    public function destroy($id)
+    {
+        $project = MyProject::find($id);
+        $project->delete();
+        Session::flash('success', 'Piętro usunięte');
+        return response()->json('Deleted', 200);
+    }
 }

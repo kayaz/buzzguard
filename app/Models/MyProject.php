@@ -23,6 +23,17 @@ class MyProject extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::class, 'project_id', 'id');
+        return $this->hasMany(MyPost::class, 'project_id', 'id');
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($project) {
+            foreach($project->posts() as $post)
+            {
+                $post->delete();
+            }
+        });
     }
 }

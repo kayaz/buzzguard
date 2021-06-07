@@ -8,7 +8,7 @@ use App\Http\Requests\PostFormRequest;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\PostType;
-use App\Models\Post;
+use App\Models\MyPost;
 use App\Models\MyProject;
 
 
@@ -31,12 +31,16 @@ class PostController extends Controller
             'date' => date("Y-m-d")
         ]);
 
-        Post::create($request->except(['_token', 'submit']));
+        $post = MyPost::create($request->except(['_token', 'submit', 'file']));
+
+        if ($request->hasFile('file')) {
+            $post->upload($request->nick, $request->file('file'));
+        }
 
         return redirect(route('admin.project.private.show', $request->project_id));
     }
 
-    public function edit(MyProject $project, Post $post)
+    public function edit(MyProject $project, MyPost $post)
     {
 
         return view('admin.private.post.form', [
@@ -48,13 +52,18 @@ class PostController extends Controller
         ]);
     }
 
-    public function update(PostFormRequest $request, Post $post)
+    public function update(PostFormRequest $request, MyPost $post)
     {
-        $post->update($request->except(['_token', 'submit']));
+        $post->update($request->except(['_token', 'submit', 'file']));
+
+        if ($request->hasFile('file')) {
+            $post->upload($request->nick, $request->file('file'), $post->file);
+        }
+
         return redirect(route('admin.project.private.show', $request->project_id));
     }
 
-    public function destroy(Post $post)
+    public function destroy(MyPost $post)
     {
         $post->delete();
         return response()->json(['href' => route('admin.project.private.show', ['project' => $post->project_id])]);

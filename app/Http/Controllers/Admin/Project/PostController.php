@@ -31,7 +31,7 @@ class PostController extends Controller
             'date' => date("Y-m-d")
         ]);
 
-        $post = Post::create($request->except(['_token', 'submit']));
+        $post = Post::create($request->except(['_token', 'submit', 'file']));
 
         if ($request->hasFile('file')) {
             $post->upload($request->nick, $request->file('file'));

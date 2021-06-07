@@ -13,12 +13,12 @@
                 <tr>
                     <th>ID</th>
                     <th>Data</th>
-                    <th>Autor</th>
-                    <th>Nick</th>
+                    <th class="colsearch">Autor</th>
+                    <th class="colsearch">Nick</th>
                     <th class="text-center">Nowy wątek</th>
-                    <th>Domena</th>
+                    <th class="colsearch">Domena</th>
                     <th>URL</th>
-                    <th>Typ</th>
+                    <th class="colsearch">Typ</th>
                     <th class="text-center">SEO</th>
                     <th class="text-center">Sentyment</th>
                     <th class="text-center">Reakcja</th>
@@ -49,7 +49,13 @@
             </div>
 
             @push('scripts')
-                <script src="{{ asset('/js/jquery.dataTables.min.js') }}" charset="utf-8"></script>
+                <script src="{{ asset('/js/datatables/jszip.min.js') }}" charset="utf-8"></script>
+                <script src="{{ asset('/js/datatables/pdfmake.min.js') }}" charset="utf-8"></script>
+                <script src="{{ asset('/js/datatables/vfs_fonts.js') }}" charset="utf-8"></script>
+                <script src="{{ asset('/js/datatables/jquery.dataTables.js') }}" charset="utf-8"></script>
+                <script src="{{ asset('/js/datatables/dataTables.buttons.min.js') }}" charset="utf-8"></script>
+                <script src="{{ asset('/js/datatables/buttons.colVis.min.js') }}" charset="utf-8"></script>
+                <script src="{{ asset('/js/datatables/buttons.html5.min.js') }}" charset="utf-8"></script>
                 <script>
                     $(function () {
                         $.fn.dataTable.ext.errMode = 'none';
@@ -61,7 +67,30 @@
                         $('.data-table').DataTable({
                             processing: true,
                             serverSide: true,
-                            searching: false,
+                            searching: true,
+                            dom: 'Bfrtip',
+                            "buttons": [
+                                {
+                                    extend: 'copyHtml5',
+                                    exportOptions: {
+                                        columns: ':visible'
+                                    }
+                                },
+                                {
+                                    extend: 'excelHtml5',
+                                    exportOptions: {
+                                        columns: ':visible'
+                                    }
+                                },
+                                {
+                                    extend: 'pdfHtml5',
+                                    exportOptions: {
+                                        columns: ':visible'
+                                    }
+                                },
+                                'colvis',
+                                'csv',
+                            ],
                             language: {
                                 "url": "/js/polish.json"
                             },
@@ -81,6 +110,10 @@
                                 {data: 'reaction', name: 'reaction'},
                                 {data: 'age_group', name: 'age_group'},
                                 {data: 'actions', name: 'actions'}
+                            ],
+                            bSort: false,
+                            columnDefs: [
+                                { className: 'text-center', targets: [0, 4, 5, 6, 7, 8, 11] },
                             ],
                             "drawCallback": function() {
                                 $('[data-toggle="tooltip"]').tooltip();

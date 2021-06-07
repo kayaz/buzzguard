@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\PrivateProject;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
+use App\Models\MyPost;
 use DataTables;
 
 class AjaxController extends Controller
@@ -11,10 +11,10 @@ class AjaxController extends Controller
 
     public function show($id)
     {
-        $posts = Post::select()->where('project_id', '=', $id);
+        $posts = MyPost::select()->where('project_id', '=', $id);
 
         return Datatables::of($posts)
-            ->addColumn('user_id', function (Post $post) {
+            ->addColumn('user_id', function (MyPost $post) {
                 return $post->users->surname.' '.$post->users->name;
             })
             ->addColumn('actions', function ($row) {

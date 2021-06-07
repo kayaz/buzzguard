@@ -7,12 +7,19 @@ use App\Models\Post;
 use DataTables;
 use Illuminate\Http\Request;
 
+
 class IndexController extends Controller
 {
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $posts = Post::select()->where('project_id', '=', $id);
+
+        $q = $request->search['value'];
+
+        if($q){
+            $posts->where('nick', 'like', '%'.$q.'%');
+        }
 
         return Datatables::of($posts)
             ->addColumn('user_id', function (Post $post) {
@@ -22,16 +29,16 @@ class IndexController extends Controller
                 return view('admin.project.datatables.actions', ['row' => $row]);
             })
             ->editColumn('url', function ($row){
-                return '<a href="'.$row->url.'" target="_blank"><i class="fe-link"></i></a>';
+                return '<a href="'.$row->url.'" target="_blank"><i class="fe-link"></i></a><span class="d-none">'.$row->url.'</span>';
             })
             ->editColumn('thread', function ($row){
-                return ($row->thread) ? '<span class="online"></span>' : '<span class="offline"></span>';
+                return ($row->thread) ? '<span class="online"></span><span class="d-none">'.$row->thread.'</span>' : '<span class="offline"></span><span class="d-none">'.$row->thread.'</span>';
             })
             ->editColumn('seo', function ($row){
-                return ($row->seo) ? '<span class="online"></span>' : '<span class="offline"></span>';
+                return ($row->seo) ? '<span class="online"></span><span class="d-none">'.$row->seo.'</span>' : '<span class="offline"></span><span class="d-none">'.$row->seo.'</span>';
             })
             ->editColumn('reaction', function ($row){
-                return ($row->reaction) ? '<span class="online"></span>' : '<span class="offline"></span>';
+                return ($row->reaction) ? '<span class="online"></span><span class="d-none">'.$row->reaction.'</span>' : '<span class="offline"></span><span class="d-none">'.$row->reaction.'</span>';
             })
             ->editColumn('age_group', function ($row){
                 return '<div class="text-center">'.age($row->age_group).'</div>';
