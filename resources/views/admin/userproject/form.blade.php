@@ -26,6 +26,7 @@
                                     </select>
                                 </div>
                             </div>
+                            @include('form-elements.input-text', ['label' => 'Limit postów', 'name' => 'limit', 'value' => $entry->limit, 'required' => 1])
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,7 @@ class ProjectUser extends Pivot
     protected $fillable = [
         'user_id',
         'project_id',
+        'limit',
         'date'
     ];
 }

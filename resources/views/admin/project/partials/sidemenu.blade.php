@@ -33,7 +33,7 @@
                     <ul class="list-group list-users">
                         @foreach($project->users as $u)
                             <li class="list-group-item d-flex align-items-center">
-                                <span>{!! mb_substr($u->name, 0, 1, 'UTF-8') !!}{!! mb_substr($u->surname, 0, 1, 'UTF-8') !!}</span><div>{{$u->name}} {{$u->surname}}</div>
+                                <span>{!! mb_substr($u->name, 0, 1, 'UTF-8') !!}{!! mb_substr($u->surname, 0, 1, 'UTF-8') !!}</span><div>{{$u->name}} {{$u->surname}} (limit: {{  dd($u) }})</div>
                                 <div class="row">
                                     <div class="col-6 d-flex justify-content-center align-items-center border-right">
                                         <a href="{{route('admin.userproject.delete', ['user' => $u->id, 'project' => $project->id])}}"><i class="fe-trash"></i> Usuń</a>
