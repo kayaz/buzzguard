@@ -93,7 +93,7 @@
                                 'csv',
                             ],
                             language: {
-                                "url": "/js/polish.json"
+                                "url": "{{ asset('/js/polish.json') }}"
                             },
                             iDisplayLength: 30,
                             ajax: "{{ route('admin.post.show', $project->id) }}",
