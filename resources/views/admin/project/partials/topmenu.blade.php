@@ -1,5 +1,5 @@
 <h2>{{$project->name}}</h2>
-<h4 class="mb-5">Ilość postów: {{$project->posts()->count()}}</h4>
+<h4 class="mb-3 mb-md-5">Ilość postów: {{$project->posts()->count()}}</h4>
 
 <div class="btn-group mb-3" role="group">
     <a href="{{ route('admin.project.show', $project->id) }}" class="btn btn-outline-primary {{ Request::routeIs('admin.project.show') ? 'active' : '' }}"><i class="fe-list"></i> Lista postów</a>

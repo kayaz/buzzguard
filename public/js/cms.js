@@ -11,112 +11,21 @@
 
 function show5(){if(document.layers||document.all||document.getElementById){var e=new Date,c=e.getHours(),o=e.getMinutes(),t=e.getSeconds();0==c&&(c=12),o<=9&&(o="0"+o),t<=9&&(t="0"+t),myclock=c+":"+o+":"+t+" ",document.layers?(document.layers.liveclock.document.write(myclock),document.layers.liveclock.document.close()):document.all?liveclock.innerHTML=myclock:document.getElementById&&(document.getElementById("liveclock").innerHTML=myclock),setTimeout("show5()",1e3)}}window.onload=show5;
 
-// Pomoc przy sortowaniu
-var fixHelper=function(b,a){a.children().each(function(){var c=$(this).clone();$(this).width($(this).width())});return a};
-
-// Sortowanie listy
-jQuery.fn.sortuj = function(a) {
-    this.sortable({
-        cursor: "move",
-        handle: ".move-button",
-        start: function(d, c) {
-            var b = $(this).sortable("instance");
-            c.placeholder.height(c.helper.height());
-            b.containment[3] += c.helper.height() * 1.5 - b.offset.click.top;
-            b.containment[1] -= b.offset.click.top
-        },
-        helper: function(b, c) {
-            c.children().each(function() {
-                $(this).width($(this).width())
-            });
-            return c
-        },
-        zIndex: 9999,
-        containment: "#sortable",
-        axis: "y",
-        update: function() {
-            var b = $(this).sortable("serialize");
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-                }
-            });
-            $.ajax({
-                data: b,
-                type: "POST",
-                url: a,
-                success: function(c) {
-                    $("#jqalert").prepend('<div class="alert alert-success border-0 none mb-0" role="alert">Zmiana zapisana</div>');
-                    $(".alert").fadeIn(500);
-                    setTimeout(function() {
-                        $(".alert").slideUp(500,function(){$(this).remove()})
-                    }, 3000)
-                },
-                error: function() {
-                    $("#jqalert").prepend('<div class="alert alert-danger border-0 none mb-0" role="alert">Wystąpił błąd</div>');
-                    $(".alert").fadeIn(500);
-                    setTimeout(function() {
-                        $(".alert").slideUp(500,function(){$(this).remove()})
-                    }, 3000)
-                }
-            })
-        }
-    }).disableSelection()
-};
-
-// Sortowanie galerii
-jQuery.fn.sortujGal = function(a) {
-    this.sortable({
-        cursor: "move",
-        handle: ".move-button",
-        zIndex: 9999,
-        containment: "#sortable",
-        dropOnEmpty: false,
-        start: function(d, c) {
-            var b = $(this).sortable("instance");
-            b.containment[3] += c.helper.height() * 1.5 - b.offset.click.top;
-            b.containment[1] -= b.offset.click.top
-        },
-        update: function() {
-            var b = $(this).sortable("serialize");
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-                }
-            });
-            $.ajax({
-                data: b,
-                type: "POST",
-                url: a,
-                success: function(c) {
-                    $("#jqalert").prepend('<div class="alert alert-success border-0 none mb-0" role="alert">Zmiana zapisana</div>');
-                    $(".alert").fadeIn(500);
-                    setTimeout(function() {
-                        $(".alert").slideUp(500,function(){$(this).remove()})
-                    }, 3000)
-                },
-                error: function() {
-                    $("#jqalert").prepend('<div class="alert alert-danger border-0 none mb-0" role="alert">Wystąpił błąd</div>');
-                    $(".alert").fadeIn(500);
-                    setTimeout(function() {
-                        $(".alert").slideUp(500,function(){$(this).remove()})
-                    }, 3000)
-                }
-            })
-        }
-    }).disableSelection()
-};
+function domain_from_url(url) {
+    const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+    if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
+        return match[2];
+    }
+    else {
+        return null;
+    }
+}
 
 $(document).ready(function(){
 	$('#togglemenu').click(function(e) {
 		e.preventDefault();
 		$('body').toggleClass('icon-menu');
 	});
-
-	$('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="tooltip"]').click(function () {
-        $('[data-toggle="tooltip"]').tooltip("hide");
-    });
 
     $(".confirm").click(function(d) {
         d.preventDefault();
@@ -179,16 +88,6 @@ $(document).ready(function(){
                 }
             }
         })
-    });
-
-    $('#toggleparam').click(function(e){
-        e.preventDefault();
-        $('.toggleRow').toggle();
-    });
-
-    $('#form_metry').keyup(function() {
-        var number = $(this).val().replace(/,/g, '.')
-        $('#form_szukaj_metry').val(Math.round(number));
     });
 
 });

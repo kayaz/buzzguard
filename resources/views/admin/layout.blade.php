@@ -29,10 +29,19 @@
             <h1><a href="{{route('admin.dashboard.index')}}" class="logo"><span>BuzzGuard</span></a></h1>
 
             <div class="user">
-                <ul>
+                <ul class="mb-0 list-unstyled">
                     <li><span class="fe-calendar"></span> <span id="livedate"><?=date('d-m-Y');?></span></li>
                     <li><span class="fe-clock"></span> <span id="liveclock"></span></li>
-                    <li><span class="fe-user"></span> Witaj: <b>{{ Auth::user()->name }}</b></li>
+                    <li class="dropdown">
+                        <div id="header-user-dropdown" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-offset="100,200">
+                            <span class="fe-user"></span> Witaj: <b>{{ Auth::user()->name }}</b>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="header-user-dropdown">
+                            <li><a class="dropdown-item" href="{{route('admin.user.show', Auth::user()->id)}}">Mój profil</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.project.private.index') }}">Moje projekty</a></li>
+                            <li><a class="dropdown-item" href="{{route('admin.account.edit', Auth::user()->id)}}">Zmień dane</a></li>
+                        </ul>
+                    </li>
                     @role('Administrator')<li><a href="{{route('admin.user.index')}}"><span class="fe-settings"></span> Ustawienia</a></li>@endrole
                     <li>
                         <a title="Wyloguj" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="fe-lock"></span> Wyloguj</a>
@@ -43,6 +52,7 @@
                 </ul>
             </div>
         </header>
+
         <div class="content">
             @yield('submenu')
 

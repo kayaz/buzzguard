@@ -12,7 +12,7 @@
         <span>{{$sublabel}}</span>
         @endisset
     </label>
-<div class="col-4">
+<div class="col-10">
         <select id="form_{{$name}}" class="form-control" name="{{$name}}">
             @foreach ($options as $key => $value)
                 <option value="{{ $key }}" @if ($selected == $key) selected @endif>{{ $value }}</option>

@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="card-header border-bottom card-nav pt-0 pb-0">
+    <div class="card-header border-bottom card-nav p-0">
         <ul class="nav">
             <li><a class="nav-link" href="{{ route('admin.dashboard.index') }}"><span class="fe-search"></span>Wyszukiwarka projektów</a></li>
             <li>
@@ -47,7 +47,7 @@
                     @endforeach
                 </ul>
             </li>
-            <li><a class="nav-link" href="{{ route('admin.project.private.index') }}"><span class="fe-briefcase"></span>Moje projekty</a></li>
+            <li><a class="nav-link" href="{{ route('admin.group.index') }}"><span class="fe-briefcase"></span>Wg. grupy</a></li>
         </ul>
     </div>
 </div>

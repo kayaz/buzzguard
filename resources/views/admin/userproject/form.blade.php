@@ -1,7 +1,12 @@
 @extends('admin.layout')
 @section('content')
-    <form method="POST" action="{{route('admin.userproject.store')}}" enctype="multipart/form-data">
-        @csrf
+@if(Route::is('admin.userproject.edit'))
+    <form method="POST" action="{{route('admin.userproject.update', $entry->id)}}">
+@method('PUT')
+@else
+    <form method="POST" action="{{route('admin.userproject.store')}}">
+@endif
+@csrf
         <div class="container">
             <div class="card">
                 <div class="card-head container">
@@ -26,7 +31,8 @@
                                     </select>
                                 </div>
                             </div>
-                            @include('form-elements.input-text', ['label' => 'Limit postów', 'name' => 'limit', 'value' => $entry->limit, 'required' => 1])
+                            @include('form-elements.input-text', ['label' => 'Dzienny limit postów', 'name' => 'limit', 'value' => $entry->limit, 'required' => 1])
+                            @include('form-elements.input-text', ['label' => 'Limit postów na projekt', 'name' => 'limit_project', 'value' => $entry->limit_project, 'required' => 1])
                         </div>
                     </div>
                 </div>

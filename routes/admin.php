@@ -11,7 +11,9 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
 
     Route::resources([
         'user' => 'User\IndexController',
+        'account' => 'Account\IndexController',
         'role' => 'Role\IndexController',
+        'group' => 'Group\IndexController',
         'logs' => 'Log\IndexController',
         'greylist' => 'Greylist\IndexController',
         'year' => 'Year\IndexController',
@@ -50,6 +52,8 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
 
     Route::group(['prefix'=>'/userproject', 'as' => 'userproject.'], function() {
         Route::get('/create/{project}',                 'UserProject\IndexController@create')->name('create');
+        Route::get('/edit/{user}/project/{project}',    'UserProject\IndexController@edit')->name('edit');
+        Route::put('/user/{user}',                      'UserProject\IndexController@update')->name('update');
         Route::post('/store',                           'UserProject\IndexController@store')->name('store');
         Route::get('/delete/{user}/project/{project}',  'UserProject\IndexController@destroy')->name('delete');
     });

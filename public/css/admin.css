@@ -34,6 +34,28 @@ p {margin:0}
     border-radius: 0 !important;
 }
 
+header .user .dropdown-menu.show {
+    transform: translate(15px, 55px) !important;
+}
+header .user .dropdown-menu {
+    background: #10101a
+}
+header .user .dropdown-menu li {
+    float: none;
+    padding: 0;
+    color: #fff;
+    width: 100%;
+}
+header .user .dropdown-menu li a {
+    font-size: 13px;
+    padding: .45rem 1.5rem
+}
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #fff;
+    background-color: rgb(47, 47, 72);
+}
+
 /* Fonty
 ================================================== */
 @font-face{
@@ -410,34 +432,25 @@ p {margin:0}
     align-items: center;
     margin-right: 10px;
 }
-.list-users li {
-    overflow: hidden;
-}
 
 .about-project .alert {
     font-size: 12px;
     padding: 5px 10px;
     text-align: center;
 }
-.about-project li .row {
-    position: absolute;
-    left: 15px;
-    right: 15px;
-    bottom: -100%;
-    top: 100%;
-    background: rgba(0, 172, 193, 1);
-    -webkit-transition: all 200ms linear;
-    -moz-transition: all 200ms linear;
-    -o-transition: all 200ms linear;
-    transition: all 200ms linear;
+.about-project li {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out
 }
-.about-project li:hover .row {
-    bottom: 0;
-    top: 50%;
+.about-project li:hover {
+    background: #f0f0f0;
+}
+.list-users-menu a {
+    margin-left: 5px;
 }
 .about-project li .row a {
-    color: white;
-    font-size: 13px;
+    font-size: 16px;
 }
 .about-text {
     padding: 20px;
@@ -816,7 +829,9 @@ p {margin:0}
     color: white;
     z-index: 999;
 }
-
+#sortable_wrapper {
+    overflow: auto
+}
 table.dataTable{clear:both;margin-top:6px !important;margin-bottom:6px !important;max-width:none !important;border-collapse:separate !important;border-spacing:0}table.dataTable td,table.dataTable th{-webkit-box-sizing:content-box;box-sizing:content-box}table.dataTable td.dataTables_empty,table.dataTable th.dataTables_empty{text-align:center}table.dataTable.nowrap th,table.dataTable.nowrap td{white-space:nowrap}div.dataTables_wrapper div.dataTables_length label{font-weight:normal;text-align:left;white-space:nowrap}div.dataTables_wrapper div.dataTables_length select{width:auto;display:inline-block}div.dataTables_wrapper div.dataTables_filter{text-align:right}div.dataTables_wrapper div.dataTables_filter label{font-weight:normal;white-space:nowrap;text-align:left}div.dataTables_wrapper div.dataTables_filter input{margin-left:0.5em;display:inline-block;width:auto}div.dataTables_wrapper div.dataTables_info{padding-top:0.85em}div.dataTables_wrapper div.dataTables_paginate{margin:0;white-space:nowrap;text-align:right}div.dataTables_wrapper div.dataTables_paginate ul.pagination{margin:2px 0;white-space:nowrap;justify-content:flex-end}div.dataTables_wrapper div.dataTables_processing{position:absolute;top:50%;left:50%;width:200px;margin-left:-100px;margin-top:-26px;text-align:center;padding:1em 0}table.dataTable>thead>tr>th:active,table.dataTable>thead>tr>td:active{outline:none}table.dataTable>thead>tr>th:not(.sorting_disabled),table.dataTable>thead>tr>td:not(.sorting_disabled){padding-right:30px}table.dataTable>thead .sorting,table.dataTable>thead .sorting_asc,table.dataTable>thead .sorting_desc,table.dataTable>thead .sorting_asc_disabled,table.dataTable>thead .sorting_desc_disabled{cursor:pointer;position:relative}table.dataTable>thead .sorting:before,table.dataTable>thead .sorting:after,table.dataTable>thead .sorting_asc:before,table.dataTable>thead .sorting_asc:after,table.dataTable>thead .sorting_desc:before,table.dataTable>thead .sorting_desc:after,table.dataTable>thead .sorting_asc_disabled:before,table.dataTable>thead .sorting_asc_disabled:after,table.dataTable>thead .sorting_desc_disabled:before,table.dataTable>thead .sorting_desc_disabled:after
 {
     position:absolute;
@@ -853,10 +868,7 @@ div.dt-button-background {
     background: rgba(0,0,0,0.7);
     z-index: 2001;
 }
-.dt-buttons {
-    float: left;
-    width: 50%;
-}
+
 .dataTables_wrapper #sortable_filter {
     float: right;
     width: 50%;
@@ -898,7 +910,13 @@ th input {
     color: white;
     padding: 5px 10px;
 }
-
+th select {
+    width: 100%;
+    border: 0;
+    background: #414662;
+    color: white;
+    padding: 4px 10px;
+}
 
 /* Mapa
 ================================================== */
@@ -1180,11 +1198,12 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
 .table td .badge {
     border-radius: 0;
     color: white;
-    font-size: 13px;
+    font-size: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: normal;
+    width: 120px
 }
 .badge.inwest-list-status-1 {background:green}
 .badge.inwest-list-status-2 {background:#940000}
@@ -1336,7 +1355,13 @@ ul#sortable li {padding-top:20px}
 .table td.option-120 {width:120px}
 .table th.position {width:65px}
 
-.action-button {background: #00acc1;color:white;border-radius:3px !important;padding: .375rem .65rem;font-size: 15px}
+.action-button {
+    background: #00acc1;
+    color: white;
+    border-radius: 3px !important;
+    padding: 5px 8px;
+    font-size: 12px;
+}
 .action-button:hover {background:#008595;color:white}
 .action-button.move-button {background:#bfbfbf}
 .action-button.move-button:hover {background:#868686}
@@ -1363,9 +1388,107 @@ ul#sortable li {padding-top:20px}
 }
 .namelist {padding: 7px 0;float: left}
 
-
+@media (max-width: 1840px) {
+    .table td, .table th {
+        padding: .75rem .75rem;
+        font-size: 12px;
+    }
+    .table td .badge {
+        font-size: 11px
+    }
+    #content {
+        padding: 5px
+    }
+    .about-project .btn-outline-primary {
+        font-size: 12px;
+        padding: 10px;
+    }
+    .list-group-item {
+        padding: .75rem 10px;
+        font-size: 12px;
+    }
+    .table-overflow.p-4 {
+        padding: 1rem !important;
+    }
+    .table-overflow.p-5 {
+        padding: 2rem !important;
+    }
+    #content .content h4,
+    #content .content h5 {
+        font-size: 14px
+    }
+    .about-project .badge {
+        font-size: 11px;
+        padding: 5px
+    }
+    .list-users .col-6 {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .about-project li .row a {
+        font-size: 11px;
+    }
+}
 @media screen and (max-width:768px) {
     .col-form-label {
         padding-bottom: 8px;
+    }
+
+    form .col-2, form .col-10 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    form .col-2 {
+        justify-content: start;
+    }
+    form .text-right {
+        text-align: left !important;
+    }
+    .card-body {
+        padding: 1.25rem 1.3rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .btn-group {
+        width: 100%;
+    }
+    .btn-outline-primary {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+    .card-header.card-nav .nav > li a {
+        font-size: 12px;
+        padding: 16px 13px;
+    }
+    #content .content h4.page-title {
+        padding: 1.25rem 13px;
+    }
+    .table-overflow.p-5 {
+        padding: 1.2rem !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .btn-group {
+        display: inline-grid;
+        width: 100%;
+    }
+    .btn-add-project {
+        width: 100%;
+    }
+    .list-group-item {
+        font-size: 14px;
+    }
+    .about-project li .row a {
+        font-size: 16px;
+    }
+    .h2, h2 {
+        font-size: 1.5rem;
+    }
+    .table thead th {
+        font-size: 12px;
+        padding: 3px;
     }
 }

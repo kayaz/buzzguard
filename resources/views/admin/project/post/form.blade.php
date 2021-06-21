@@ -44,3 +44,11 @@
     @include('form-elements.submit', ['name' => 'submit', 'value' => 'Zapisz'])
 </form>
 @endsection
+@push('scripts')
+    <script type="text/javascript">
+        $(document).on('keyup', 'input#form_url', function () {
+            const url = $(this).val(), field = $('#form_website'), domain = domain_from_url(url);
+            field.val(domain);
+        });
+    </script>
+@endpush

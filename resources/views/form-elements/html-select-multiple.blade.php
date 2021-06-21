@@ -1,7 +1,7 @@
 <div class="form-group row">
     {!! Form::label($name, '<div class="text-right">'.$label.' <span class="text-danger d-inline">*</span></div>', ['class' => 'col-2 col-form-label control-label required'], false) !!}
-    <div class="col-4">
-        @if($selected)
+    <div class="col-10">
+        @isset($selected)
             {!! Form::select($name.'[]', $select, $selected, array('class' => 'form-control', 'multiple')) !!}
         @else
             {!! Form::select($name.'[]', $select, [], array('class' => 'form-control', 'multiple')) !!}

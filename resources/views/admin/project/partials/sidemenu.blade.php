@@ -32,14 +32,17 @@
                 @if($project->users->count() > 0)
                     <ul class="list-group list-users">
                         @foreach($project->users as $u)
-                            <li class="list-group-item d-flex align-items-center">
-                                <span>{!! mb_substr($u->name, 0, 1, 'UTF-8') !!}{!! mb_substr($u->surname, 0, 1, 'UTF-8') !!}</span><div>{{$u->name}} {{$u->surname}} (limit: )</div>
+                            <li class="list-group-item container">
                                 <div class="row">
-                                    <div class="col-6 d-flex justify-content-center align-items-center border-right">
-                                        <a href="{{route('admin.userproject.delete', ['user' => $u->id, 'project' => $project->id])}}"><i class="fe-trash"></i> Usuń</a>
+                                    <div class="col-8">
+                                        {{$u->name}} {{$u->surname}} (limit: {{ $u->pivot->limit }})
                                     </div>
-                                    <div class="col-6 d-flex justify-content-center align-items-center">
-                                        <a href=""><i class="fe-download"></i> Export</a>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <div class="list-users-menu">
+                                            <a href="{{route('admin.userproject.edit', ['user' => $u->pivot->id, 'project' => $project->id])}}"><i class="fe-edit"></i></a>
+                                            <a href=""><i class="fe-download"></i></a>
+                                            <a href="{{route('admin.userproject.delete', ['user' => $u->pivot->id, 'project' => $project->id])}}"><i class="fe-trash text-danger"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>

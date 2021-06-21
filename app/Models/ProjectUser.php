@@ -16,6 +16,7 @@ class ProjectUser extends Pivot
         'user_id',
         'project_id',
         'limit',
+        'limit_project',
         'date'
     ];
 }

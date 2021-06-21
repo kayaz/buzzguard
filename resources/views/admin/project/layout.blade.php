@@ -4,10 +4,10 @@
     <div class="container-fluid">
         @include('admin.submenu')
         <div class="row">
-            <div class="col-3 col-xl-2">
+            <div class="order-2 order-xl-1 col-12 col-xl-2">
                 @include('admin.project.partials.sidemenu')
             </div>
-            <div class="col-9 col-xl-10">
+            <div class="order-1 order-xl-2 col-12 col-xl-10">
                 <div class="card mt-3">
                     <div class="card-body card-body-rem p-0">
                         <div class="table-overflow p-5">

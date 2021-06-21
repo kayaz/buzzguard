@@ -15,12 +15,6 @@ class IndexController extends Controller
     {
         $posts = Post::select()->where('project_id', '=', $id);
 
-        $q = $request->search['value'];
-
-        if($q){
-            $posts->where('nick', 'like', '%'.$q.'%');
-        }
-
         return Datatables::of($posts)
             ->addColumn('user_id', function (Post $post) {
                 return $post->users->surname.' '.$post->users->name;

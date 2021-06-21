@@ -6,12 +6,13 @@
         <div class="col-12">
             @include('admin.project.partials.topmenu')
             <div class="d-flex justify-content-end pb-3">
-                <a href="{{ route('admin.project.post.create', $project) }}" class="btn btn-lg btn-primary"><i class="fe-file-plus"></i> Dodaj post</a>
+                <a href="{{ route('admin.project.post.create', $project) }}" class="btn btn-lg btn-primary btn-add-project">
+                    <i class="fe-file-plus"></i> Dodaj post
+                </a>
             </div>
             <table class="table data-table mb-0 w-100" id="sortable">
                 <thead class="thead-default">
                 <tr>
-                    <th>ID</th>
                     <th>Data</th>
                     <th class="colsearch">Autor</th>
                     <th class="colsearch">Nick</th>
@@ -67,8 +68,8 @@
                         $('.data-table').DataTable({
                             processing: true,
                             serverSide: true,
-                            searching: true,
-                            dom: 'Bfrtip',
+                            responsive: true,
+                            dom: 'Brtip',
                             "buttons": [
                                 {
                                     extend: 'copyHtml5',
@@ -97,7 +98,6 @@
                             iDisplayLength: 30,
                             ajax: "{{ route('admin.post.show', $project->id) }}",
                             columns: [
-                                {data: 'id', name: 'id'},
                                 {data: 'date', name: 'date'},
                                 {data: 'user_id', name: 'user_id'},
                                 {data: 'nick', name: 'nick'},
@@ -113,8 +113,29 @@
                             ],
                             bSort: false,
                             columnDefs: [
-                                { className: 'text-center', targets: [0, 4, 5, 6, 7, 8, 11] },
+                                { className: 'text-center', targets: [0, 2, 4, 5, 6, 7, 8, 11] },
+                                { className: 'select-column', targets: [2, 4, 6] },
                             ],
+                            initComplete: function () {
+                                this.api().columns('.select-column').every( function () {
+                                    const column = this;
+                                    const select = $('<select><option value="">'+ this.header().textContent +'</option></select>')
+                                        .appendTo($(column.header()).empty())
+                                        .on('change', function () {
+                                            const val = $.fn.dataTable.util.escapeRegex(
+                                                $(this).val()
+                                            );
+
+                                            column
+                                                .search(val ? '^' + val + '$' : '', true, false)
+                                                .draw();
+                                        });
+
+                                    column.data().unique().sort().each( function ( d, j ) {
+                                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                                    } );
+                                } );
+                            },
                             "drawCallback": function() {
                                 $('[data-toggle="tooltip"]').tooltip();
                                 $('[data-toggle="tooltip"]').click(function () {

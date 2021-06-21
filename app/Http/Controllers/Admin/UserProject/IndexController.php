@@ -34,9 +34,29 @@ class IndexController extends Controller
         return redirect(route('admin.project.show', $request->project_id));
     }
 
+    public function edit($id, Project $project)
+    {
+        $entry = ProjectUser::find($id);
+        $users = User::where('client', 0)->orderBy('name')->get(['surname', 'name', 'id']);
+
+        return view('admin.userproject.form', [
+            'cardTitle' => 'Edytuj użytkownika',
+            'backButton' => route('admin.project.show', $project->id),
+            'entry' => $entry,
+            'project' => $project,
+            'users' => $users
+        ]);
+    }
+
+    public function update(Request $request, ProjectUser $user)
+    {
+        $user->update($request->except(['_token', 'submit']));
+        return redirect(route('admin.project.show', $request->project_id));
+    }
+
     public function destroy($id, $project)
     {
-        ProjectUser::where('user_id', $id)->delete();
+        ProjectUser::where('id', $id)->delete();
 
         Session::flash('successuser', 'Użytkownik usunięty');
         return redirect(route('admin.project.show', $project));
