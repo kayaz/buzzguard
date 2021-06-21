@@ -15,7 +15,7 @@
             </table>
 
             @push('scripts')
-                <script src="/js/jquery.dataTables.min.js"></script>
+                <script src="{{ asset('/js/datatables/jquery.dataTables.js') }}"></script>
 
                 <script>
                     $(function () {
@@ -29,7 +29,7 @@
                             serverSide: true,
                             searching: false,
                             language: {
-                                "url": "/js/polish.json"
+                                "url": "{{ asset('/js/polish.json') }}"
                             },
                             ajax: "{{ route('admin.tracker.apiEvents') }}",
                             columns: [
