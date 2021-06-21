@@ -8,20 +8,3 @@
         <button type="submit" class="btn action-button confirmForm" data-toggle="tooltip" data-placement="top" title="Usuń wpis" data-id="{{ $row->id }}"><i class="fe-trash-2"></i></button>
     </form>
 </div>
-<script>
-    $(".show-modal").on("click", function(){
-        const userid = $(this).data('id');
-        $.ajax({
-            url: '{{ route('admin.post.modal') }}',
-            type: 'post',
-            data: {
-                "_token": "{{ csrf_token() }}",
-                "id": userid
-            },
-            success: function(response){
-                $('#empModal .modal-body').html(response);
-                $('#empModal').modal({show:true});
-            }
-        });
-    });
-</script>

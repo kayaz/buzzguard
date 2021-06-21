@@ -134,7 +134,7 @@
                                     column.data().unique().sort().each( function ( d, j ) {
                                         select.append( '<option value="'+d+'">'+d+'</option>' )
                                     } );
-                                } );
+                                });
                             },
                             "drawCallback": function() {
                                 $('[data-toggle="tooltip"]').tooltip();
@@ -172,6 +172,24 @@
                                         }
                                     })
                                 });
+
+                                $(".show-modal").on("click", function(){
+                                    const userid = $(this).data('id');
+                                    $.ajax({
+                                        url: '{{ route('admin.post.modal') }}',
+                                        type: 'post',
+                                        data: {
+                                            "_token": "{{ csrf_token() }}",
+                                            "id": userid
+                                        },
+                                        success: function(response){
+                                            $('#empModal .modal-body').html(response);
+                                            const myModal = new bootstrap.Modal(document.getElementById('empModal'));
+                                            myModal.show();
+                                        }
+                                    });
+                                });
+
                             }
                         });
                     });

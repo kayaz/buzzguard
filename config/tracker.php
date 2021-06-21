@@ -5,7 +5,7 @@ return [
     /*
      * Enable it?
      */
-    'enabled' => false,
+    'enabled' => true,
 
     /*
      * Enable cache?
@@ -20,7 +20,7 @@ return [
     /*
      * Robots should be tracked?
      */
-    'do_not_track_robots' => false,
+    'do_not_track_robots' => true,
 
     /*
      * Which environments are not trackable?
@@ -181,12 +181,12 @@ return [
      *     sudo apt-get purge php5-geoip
      *
      */
-    'log_geoip' => true,
+    'log_geoip' => false,
 
     /*
      * Do you wish to log the user agent?
      */
-    'log_user_agents' => true,
+    'log_user_agents' => false,
 
     /*
      * Do you wish to log your users?
@@ -196,12 +196,12 @@ return [
     /*
      * Do you wish to log devices?
      */
-    'log_devices' => true,
+    'log_devices' => false,
 
     /*
      * Do you wish to log languages?
      */
-    'log_languages' => true,
+    'log_languages' => false,
 
     /*
      * Do you wish to log HTTP referers?

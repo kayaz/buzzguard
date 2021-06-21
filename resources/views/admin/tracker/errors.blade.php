@@ -2,20 +2,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-head container-fluid">
-                <div class="row">
-                    <div class="col-6 pl-0">
-                        <h4 class="page-title row"><i class="fe-bar-chart-line-"></i>Statystyki - Błędy strony</h4>
-                    </div>
-                </div>
-            </div>
-
-            @include('admin.tracker.submenu')
-
-        </div>
+        @include('admin.topmenu')
         <div class="card mt-3">
-
             <table class="table data-table mb-0 w-100" id="sortable">
                 <thead class="thead-default">
                 <tr>
@@ -27,8 +15,7 @@
                     <th>Data</th>
                 </tr>
                 </thead>
-                <tbody class="content">
-                </tbody>
+                <tbody class="content"></tbody>
             </table>
 
             @push('scripts')

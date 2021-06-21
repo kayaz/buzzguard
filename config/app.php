@@ -232,7 +232,6 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class
-
     ],
 
 ];

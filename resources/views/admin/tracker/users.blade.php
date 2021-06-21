@@ -7,8 +7,12 @@
             <table class="table data-table mb-0 w-100" id="sortable">
                 <thead class="thead-default">
                 <tr>
-                    <th>Nazwa</th>
-                    <th>Ilośc akcji</th>
+                    <th>Kod HTTP</th>
+                    <th>Metoda</th>
+                    <th>Treść błędu</th>
+                    <th>Ścieżka</th>
+                    <th>IP</th>
+                    <th>Data</th>
                 </tr>
                 </thead>
                 <tbody class="content"></tbody>
@@ -31,10 +35,14 @@
                             language: {
                                 "url": "/js/polish.json"
                             },
-                            ajax: "{{ route('admin.tracker.apiEvents') }}",
+                            ajax: "{{ route('admin.tracker.apiUsers') }}",
                             columns: [
-                                {data: 'name', name: 'name'},
-                                {data: 'total', name: 'total'}
+                                {data: 'error.code', name: 'error.code'},
+                                {data: 'method', name: 'method'},
+                                {data: 'error.message', name: 'error.message'},
+                                {data: 'path.path', name: 'path.path'},
+                                {data: 'session.client_ip', name: 'session.client_ip'},
+                                {data: 'updated_at', name: 'updated_at'}
                             ]
                         });
                     });

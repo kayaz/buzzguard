@@ -40,6 +40,25 @@ class IndexController extends Controller
             ->make(true);
     }
 
+    public function users()
+    {
+        return view('admin.tracker.users');
+    }
+
+    public function apiUsers(Session $session)
+    {
+        $username_column = Tracker::getConfig('authenticated_user_username_column');
+
+        return Datatables::of(Tracker::users($session->getMinutes(), false))
+            ->edit_column('user_id', function ($row) use ($username_column) {
+                return "{$row->user->$username_column}";
+            })
+            ->edit_column('updated_at', function ($row) {
+                return "{$row->updated_at->diffForHumans()}";
+            })
+            ->make(true);
+    }
+
     public function events()
     {
         return view('admin.tracker.events');

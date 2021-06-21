@@ -33,6 +33,9 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
         Route::get('log/{uuid}',    'Tracker\IndexController@log')->name('log');
         Route::get('apiLog/{uuid}', 'Tracker\IndexController@apiLog')->name('apiLog');
 
+        Route::get('users',    'Tracker\IndexController@users')->name('users');
+        Route::get('apiUsers', 'Tracker\IndexController@apiUsers')->name('apiUsers');
+
     });
 
     // Year
