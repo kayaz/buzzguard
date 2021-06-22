@@ -19,7 +19,7 @@
             </table>
 
             @push('scripts')
-                <script src="/js/jquery.dataTables.min.js"></script>
+                <script src="{{ asset('/js/datatables/jquery.dataTables.js') }}"></script>
 
                 <script>
                     $(function () {
@@ -37,11 +37,7 @@
                             },
                             ajax: "{{ route('admin.tracker.apiUsers') }}",
                             columns: [
-                                {data: 'error.code', name: 'error.code'},
-                                {data: 'method', name: 'method'},
-                                {data: 'error.message', name: 'error.message'},
-                                {data: 'path.path', name: 'path.path'},
-                                {data: 'session.client_ip', name: 'session.client_ip'},
+                                {data: 'user_id', name: 'user_id'},
                                 {data: 'updated_at', name: 'updated_at'}
                             ]
                         });
