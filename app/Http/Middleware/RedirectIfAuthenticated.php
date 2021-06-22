@@ -20,11 +20,6 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-
-            OneSignal::sendNotificationToAll(
-                "Zalogowany"
-            );
-
             return redirect(RouteServiceProvider::HOME);
         }
 
