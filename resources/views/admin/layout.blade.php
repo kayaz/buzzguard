@@ -21,6 +21,20 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "00c6578d-1937-42b7-8d2d-20b20b593fff",
+                notifyButton: {
+                    enable: true,
+                },
+                subdomainName: "buzzguard",
+            });
+        });
+    </script>
 </head>
 <body class="lang-pl">
 <div id="admin">
@@ -71,6 +85,5 @@
 <script src="{{ asset('/js/cms.js') }}" charset="utf-8"></script>
 
 @stack('scripts')
-
 </body>
 </html>
