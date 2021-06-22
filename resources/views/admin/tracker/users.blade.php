@@ -7,12 +7,8 @@
             <table class="table data-table mb-0 w-100" id="sortable">
                 <thead class="thead-default">
                 <tr>
-                    <th>Kod HTTP</th>
-                    <th>Metoda</th>
-                    <th>Treść błędu</th>
-                    <th>Ścieżka</th>
-                    <th>IP</th>
-                    <th>Data</th>
+                    <th>E-mail</th>
+                    <th>Ostatnio widziany</th>
                 </tr>
                 </thead>
                 <tbody class="content"></tbody>
@@ -33,7 +29,7 @@
                             serverSide: true,
                             searching: false,
                             language: {
-                                "url": "/js/polish.json"
+                                "url": "{{ asset('/js/polish.json') }}"
                             },
                             ajax: "{{ route('admin.tracker.apiUsers') }}",
                             columns: [
