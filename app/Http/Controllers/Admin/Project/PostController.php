@@ -11,8 +11,7 @@ use App\Models\PostType;
 use App\Models\Post;
 use App\Models\Project;
 
-use OneSignal;
-
+use App\Events\Notifi as Notifi;
 
 class PostController extends Controller
 {
@@ -39,9 +38,7 @@ class PostController extends Controller
             $post->upload($request->nick, $request->file('file'));
         }
 
-        OneSignal::sendNotificationToAll(
-            "Dodano nowy post"
-        );
+        event(new Notifi());
 
         return redirect(route('admin.project.show', $request->project_id));
     }

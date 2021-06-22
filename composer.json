@@ -23,6 +23,7 @@
         "laravelcollective/html": "^6.2",
         "nesbot/carbon": "^2.47",
         "pragmarx/tracker": "^4.0",
+        "pusher/pusher-php-server": "^7.0",
         "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-permission": "^3.17",
         "spatie/valuestore": "^1.2",

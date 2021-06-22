@@ -24,4 +24,5 @@ Route::middleware(['restrictIp'])->group(function () {
         return redirect('/admin');
     });
 
+    Route::get('/notification', 'PusherNotificationController@sendNotification');
 });

@@ -56,6 +56,15 @@ header .user .dropdown-menu li a {
     background-color: rgb(47, 47, 72);
 }
 
+.user .badge-pill {
+    border-radius: 50% !important;
+    font-size: 10px;
+    position: absolute;
+    left: 22px;
+    top: 14px;
+    display: none;
+}
+
 /* Fonty
 ================================================== */
 @font-face{

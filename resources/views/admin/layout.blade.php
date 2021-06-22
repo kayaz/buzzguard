@@ -22,21 +22,21 @@
     <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
 
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "00c6578d-1937-42b7-8d2d-20b20b593fff",
-                notifyButton: {
-                    enable: true,
-                },
-                subdomainName: "buzzguard",
-            });
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('fc1327a7a8d4ca1d9481', {
+            cluster: 'eu'
         });
+        var channel = pusher.subscribe('buzzguard');
+
     </script>
+
 </head>
 <body class="lang-pl">
+
+
 <div id="admin">
     <div id="content">
         <header id="header-navbar">
@@ -56,7 +56,10 @@
                             <li><a class="dropdown-item" href="{{route('admin.account.edit', Auth::user()->id)}}">Zmień dane</a></li>
                         </ul>
                     </li>
-                    @role('Administrator')<li><a href="{{route('admin.user.index')}}"><span class="fe-settings"></span> Ustawienia</a></li>@endrole
+                    @role('Administrator')
+                        <li><a href="{{route('admin.user.index')}}"><span class="fe-settings"></span> Ustawienia</a></li>
+                        <li><span class="fe-bell"></span><span class="badge-pill badge-danger" data-count="0"></span></li>
+                    @endrole
                     <li>
                         <a title="Wyloguj" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="fe-lock"></span> Wyloguj</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -83,6 +86,22 @@
 <script src="{{ asset('/js/bootstrap.bundle.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('/js/jquery-ui.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('/js/cms.js') }}" charset="utf-8"></script>
+
+<script type="text/javascript">
+    const notificationsWrapper = $('.user .badge-pill');
+    let notificationsCount = parseInt(notificationsWrapper.data('count'));
+
+    if (notificationsCount <= 0) {
+        notificationsWrapper.hide();
+    }
+
+    channel.bind('project-status', function(data) {
+        notificationsCount += 1;
+        notificationsWrapper.attr('data-count', notificationsCount);
+        notificationsWrapper.text(notificationsCount);
+        notificationsWrapper.show();
+    });
+</script>
 
 @stack('scripts')
 </body>
