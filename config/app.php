@@ -231,7 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Input' => Illuminate\Support\Facades\Request::class
     ],
 
 ];
