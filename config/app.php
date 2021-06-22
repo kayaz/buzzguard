@@ -168,7 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Berkayk\OneSignal\OneSignalServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -232,7 +232,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'Input' => Illuminate\Support\Facades\Request::class
+        'Input' => Illuminate\Support\Facades\Request::class,
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class
     ],
 
 ];
