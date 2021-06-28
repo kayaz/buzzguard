@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Session;
 
 class FileController extends Controller
 {
+    function __construct(){
+        $this->middleware('permission:file-create|file-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:file-create', ['only' => ['store']]);
+        $this->middleware('permission:file-delete', ['only' => ['destroy']]);
+    }
+
     public function store(Request $request)
     {
         $project_file = ProjectFile::create($request->merge([

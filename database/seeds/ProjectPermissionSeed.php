@@ -5,20 +5,18 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
-class PermissionSliderSeeder extends Seeder
+class ProjectPermissionSeed extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
         $permissions = [
-            'slider-list',
-            'slider-create',
-            'slider-edit',
-            'slider-delete',
+            'project-create',
+            'project-edit',
+            'project-delete',
         ];
 
         foreach ($permissions as $permission) {

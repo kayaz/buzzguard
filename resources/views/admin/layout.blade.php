@@ -58,7 +58,7 @@
                     </li>
                     @role('Administrator')
                         <li><a href="{{route('admin.user.index')}}"><span class="fe-settings"></span> Ustawienia</a></li>
-                        <li><span class="fe-bell"></span><span class="badge-pill badge-danger" data-count="0"></span></li>
+                    <li><a href="{{route('admin.tracker.events')}}"><span class="fe-bell"></span><span class="badge-pill badge-danger @if(auth()->user()->unreadNotifications->count() > 0) d-block @endif" data-count="{{ auth()->user()->unreadNotifications->count() }}">@if(auth()->user()->unreadNotifications->count() > 0) {{ auth()->user()->unreadNotifications->count() }} @endif</span></a></li>
                     @endrole
                     <li>
                         <a title="Wyloguj" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="fe-lock"></span> Wyloguj</a>

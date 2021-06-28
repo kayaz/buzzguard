@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Admin\Tracker;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use Bllim\Datatables\Facade\Datatables;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
 use PragmaRX\Tracker\Vendor\Laravel\Support\Session;
 
 class IndexController extends Controller
 {
+    function __construct(){
+        $this->middleware('permission:event-list', ['only' => ['events']]);
+    }
+
     public function index()
     {
         $pageViews = Tracker::pageViews(60 * 24 * 30)->toJson();
@@ -64,18 +70,28 @@ class IndexController extends Controller
         return view('admin.tracker.events');
     }
 
-    public function apiEvents(Session $session)
+    public function apiEvents()
     {
-        $query = Tracker::events($session->getMinutes(), false);
+        Auth::user()->unreadNotifications->markAsRead();
 
-        return Datatables::of($query)
-            ->edit_column('name', function ($row) {
+        return Datatables::of(Notification::query()->orderBy('created_at', 'DESC')->where('notifiable_id', Auth::id()), false)
+        ->edit_column('created_at', function ($row) {
+            return "{$row->created_at->diffForHumans()}";
+        })
+        ->add_column('message', function ($row) {
 
-                $uri = route('admin.tracker.event', $row->id);
+            if($row->type == 'App\Notifications\NewPostNotification'){
+                return 'Nowy wpis w projekcie: <a href="'.route('admin.project.show', $row->data->project_id).'">'.$row->data->project.'</a>';
+            }
 
-                return '<a href="'.$uri.'">'.__('tracker.'.$row->name).'</a>';
-            })
-            ->make(true);
+            if($row->type == 'App\Notifications\QANotification'){
+                return 'Nowy wpis na czacie w projekcie: <a href="'.route('admin.project.chat', $row->data->project_id).'">'.$row->data->project.'</a>';
+            }
+        })
+        ->add_column('status', function ($row) {
+            return (!$row->read_at) ? '<span class="online"></span><span class="d-none">' . $row->read_at . '</span>' : '<span class="offline"></span><span class="d-none">' . $row->read_at . '</span>';
+        })
+        ->make(true);
     }
 
     public function event($id)

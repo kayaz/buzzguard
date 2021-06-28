@@ -5,14 +5,18 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
-class PermissionPageSeeder extends Seeder
+class UserProjectPermissionSeed extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run(){
         $permissions = [
-            'page-list',
-            'page-create',
-            'page-edit',
-            'page-delete',
+            'userproject-create',
+            'userproject-edit',
+            'userproject-delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -20,4 +24,3 @@ class PermissionPageSeeder extends Seeder
         }
     }
 }
-

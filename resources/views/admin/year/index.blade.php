@@ -2,41 +2,39 @@
 
 @section('content')
     <div class="container-fluid">
-        @include('admin.submenu')
+        @include('admin.topmenu')
         <div class="card mt-3">
             <div class="card-body card-body-rem p-0">
-                <div class="table-overflow p-5">
-                    <div class="container p-0">
-                        <div class="row no-gutters">
-                            <div class="col-12">
-                                <h2 class="mb-5">Otwarte projekty - rok: {{$year->year}}</h2>
-                                <table class="table data-table mb-0 w-100" id="sortable">
-                                    <thead class="thead-default">
-                                    <tr>
-                                        <th>Nazwa</th>
-                                        <th class="text-center">Klient</th>
-                                        <th class="text-center">Data rozpoczęcia</th>
-                                        <th class="text-center">Data zakończenia</th>
-                                        <th class="text-center">Status</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="content">
-                                    @foreach($yearprojects as $pr)
-                                        <tr>
-                                            <td><a href="{{ route('admin.project.show', $pr->id) }}">{{$pr->name}}</a></td>
-                                            <td class="text-center">{{ $pr->client->name ?? "-" }}</td>
-                                            <td class="text-center">{{$pr->date_start}}</td>
-                                            <td class="text-center">{{$pr->date_end}}</td>
-                                            <td class="text-center">{!! status($pr->status) !!}</td>
-                                            <td></td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="table-overflow">
+                    @if (session('success'))
+                        <div class="alert alert-success border-0 mb-0">
+                            {{ session('success') }}
+                            <script>setTimeout(function(){$(".alert").slideUp(500,function(){$(this).remove()})},3000)</script>
                         </div>
-                    </div>
+                    @endif
+                    <table class="table mb-0">
+                        <thead class="thead-default">
+                        <tr>
+                            <th>Rok</th>
+                        </tr>
+                        </thead>
+                        <tbody class="content">
+                        @foreach ($list as $p)
+                            <tr>
+                                <td>{{ $p->year }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-submit">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <a href="{{ route('admin.year.create') }}" class="btn btn-primary">Dodaj rok</a>
                 </div>
             </div>
         </div>

@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
+    function __construct(){
+        $this->middleware('permission:group-list|group-create|group-edit|group-delete', ['only' => ['index','store','show']]);
+        $this->middleware('permission:group-create', ['only' => ['create','store']]);
+        $this->middleware('permission:group-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:group-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         return view('admin.group.index', ['list' => Group::orderBy('id', 'asc')->get()]);

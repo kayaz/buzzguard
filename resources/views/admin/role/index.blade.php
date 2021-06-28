@@ -28,14 +28,18 @@
                             <td>{{ $p->updated_at }}</td>
                             <td class="option-120">
                                 <div class="btn-group">
+                                    @can('role-edit')
                                     <a href="{{ route('admin.role.edit', $p) }}" class="btn action-button mr-1" data-toggle="tooltip" data-placement="top" title="Edytuj"><i class="fe-edit"></i></a>
-                                    @if($p->id != 1 && $p->id != 4 && $p->id != 5 && $p->id != 6)
-                                    <form method="POST" action="{{ route('admin.role.destroy', $p) }}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button type="submit" class="btn action-button confirm" data-toggle="tooltip" data-placement="top" title="Usuń" data-id="{{ $p->id }}"><i class="fe-trash-2"></i></button>
-                                    </form>
-                                    @endif
+                                    @endcan
+                                    @can('role-delete')
+                                        @if($p->id <> 1)
+                                        <form method="POST" action="{{ route('admin.role.destroy', $p) }}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn action-button confirm" data-toggle="tooltip" data-placement="top" title="Usuń" data-id="{{ $p->id }}"><i class="fe-trash-2"></i></button>
+                                        </form>
+                                        @endif
+                                    @endcan
                                 </div>
                             </td>
                         </tr>
@@ -45,6 +49,7 @@
             </div>
         </div>
     </div>
+    @can('role-create')
     <div class="form-group form-group-submit">
         <div class="container-fluid">
             <div class="row">
@@ -54,4 +59,5 @@
             </div>
         </div>
     </div>
+    @endcan
 @endsection

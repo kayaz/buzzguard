@@ -37,7 +37,7 @@
                     <div class="modal-content">
                          <div class="modal-header">
                             <h5 class="modal-title mb-0" id="postlabel">Podgląd wpisu</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <i class="fe-x-square"></i>
                             </button>
                         </div>
@@ -69,29 +69,34 @@
                             processing: true,
                             serverSide: true,
                             responsive: true,
-                            dom: 'Brtip',
-                            "buttons": [
-                                {
-                                    extend: 'copyHtml5',
-                                    exportOptions: {
-                                        columns: ':visible'
-                                    }
-                                },
-                                {
-                                    extend: 'excelHtml5',
-                                    exportOptions: {
-                                        columns: ':visible'
-                                    }
-                                },
-                                {
-                                    extend: 'pdfHtml5',
-                                    exportOptions: {
-                                        columns: ':visible'
-                                    }
-                                },
-                                'colvis',
-                                'csv',
-                            ],
+                            @role('Administrator')
+                                dom: 'Brtip',
+                                "buttons": [
+                                    {
+                                        extend: 'copyHtml5',
+                                        exportOptions: {
+                                            columns: ':visible'
+                                        }
+                                    },
+                                    {
+                                        extend: 'excelHtml5',
+                                        exportOptions: {
+                                            columns: ':visible'
+                                        }
+                                    },
+                                    {
+                                        extend: 'pdfHtml5',
+                                        exportOptions: {
+                                            columns: ':visible'
+                                        }
+                                    },
+                                    'colvis',
+                                    'csv',
+                                ],
+                            @else
+                                dom: '',
+                                "buttons": [],
+                            @endrole
                             language: {
                                 "url": "{{ asset('/js/polish.json') }}"
                             },
@@ -189,7 +194,6 @@
                                         }
                                     });
                                 });
-
                             }
                         });
                     });

@@ -12,6 +12,12 @@ use App\Models\ProjectUser;
 
 class IndexController extends Controller
 {
+    function __construct(){
+        $this->middleware('permission:userproject-create|userproject-edit|userproject-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:userproject-create', ['only' => ['create','store']]);
+        $this->middleware('permission:userproject-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:userproject-delete', ['only' => ['destroy']]);
+    }
 
     public function create(Project $project)
     {

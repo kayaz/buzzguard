@@ -4,11 +4,12 @@
     <div class="container-fluid">
         @include('admin.topmenu')
         <div class="card mt-3">
-            <table class="table data-table mb-0 w-100" id="sortable">
+            <table class="table data-table w-100" id="sortable">
                 <thead class="thead-default">
                 <tr>
-                    <th>Nazwa</th>
-                    <th>Ilośc akcji</th>
+                    <th>Wiadomość</th>
+                    <th>Status</th>
+                    <th>Data</th>
                 </tr>
                 </thead>
                 <tbody class="content"></tbody>
@@ -33,8 +34,9 @@
                             },
                             ajax: "{{ route('admin.tracker.apiEvents') }}",
                             columns: [
-                                {data: 'name', name: 'name'},
-                                {data: 'total', name: 'total'}
+                                {data: 'message', name: 'message'},
+                                {data: 'status', name: 'status'},
+                                {data: 'created_at', name: 'created_at'}
                             ]
                         });
                     });

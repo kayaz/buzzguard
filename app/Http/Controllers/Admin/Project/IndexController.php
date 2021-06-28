@@ -13,9 +13,15 @@ use App\Models\Project;
 
 class IndexController extends Controller
 {
+    function __construct(){
+        $this->middleware('permission:project-create|project-edit|project-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:project-create', ['only' => ['create','store']]);
+        $this->middleware('permission:project-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:project-delete', ['only' => ['destroy']]);
+    }
+
     public function create()
     {
-
         $years = Year::orderByDesc('year')->get()->pluck('year','year');
         $clients = User::where('client', 1)->pluck('name', 'id');
 
@@ -79,4 +85,9 @@ class IndexController extends Controller
         ]);
     }
 
+    public function destroy(Project $project)
+    {
+        $project->delete();
+        return response()->json(['href' => route('admin.year.show', $project->year)]);
+    }
 }

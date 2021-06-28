@@ -8,6 +8,8 @@ use App\Http\Requests\ChatFormRequest;
 use App\Models\Chat;
 use App\Models\Project;
 
+use App\Events\QA;
+
 use App\Repositories\ChatRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,6 +32,14 @@ class ChatController extends Controller
 
     public function create(Project $project)
     {
+        $event_array = [
+            'project' => $project->name,
+            'project_id' => $project->id,
+            'user' => Auth::user()->email
+        ];
+
+        event(new QA($event_array));
+
         return view('admin.project.chat.form', [
             'cardTitle' => 'Dodaj nowe pytanie',
             'project' => $project,

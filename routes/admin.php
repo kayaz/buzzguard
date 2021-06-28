@@ -77,6 +77,7 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
         Route::get('{project}/edit',    'Project\IndexController@edit')->name('edit');
         Route::put('{project}',         'Project\IndexController@update')->name('update');
         Route::get('{project}',         'Project\IndexController@show')->name('show');
+        Route::delete('{project}',         'Project\IndexController@destroy')->name('destroy');
 
         // Project - Charts
         Route::get('{project}/charts',  'Project\ChartController@index')->name('charts');

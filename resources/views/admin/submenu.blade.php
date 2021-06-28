@@ -4,9 +4,11 @@
             <div class="col-6 pl-0">
                 <h4 class="page-title row"><i class="fe-users"></i>Projekty</h4>
             </div>
+            @can('project-create')
             <div class="col-6 d-flex justify-content-end align-items-center form-group-submit">
                 <a href="{{ route('admin.project.create') }}" class="btn btn-primary">Dodaj projekt</a>
             </div>
+            @endcan
         </div>
     </div>
 
@@ -40,6 +42,7 @@
                     <li><a href="{{ route('admin.year.closed', 2021) }}">2021</a></li>
                 </ul>
             </li>
+            @can('clientgroup-list')
             <li><a class="nav-link" href=""><span class="fe-user"></span>Wg. klienta</a>
                 <ul class="submenu scrollable">
                     @foreach(clientsMenu() as $c)
@@ -47,7 +50,10 @@
                     @endforeach
                 </ul>
             </li>
+            @endcan
+            @can('group-list')
             <li><a class="nav-link" href="{{ route('admin.group.index') }}"><span class="fe-briefcase"></span>Wg. grupy</a></li>
+            @endcan
         </ul>
     </div>
 </div>

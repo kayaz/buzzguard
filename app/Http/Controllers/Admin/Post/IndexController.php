@@ -13,7 +13,7 @@ class IndexController extends Controller
 
     public function show(Request $request, $id)
     {
-        $posts = Post::select()->where('project_id', '=', $id);
+        $posts = Post::select()->where('project_id', '=', $id)->orderByDesc('id');
 
         return Datatables::of($posts)
             ->addColumn('user_id', function (Post $post) {
