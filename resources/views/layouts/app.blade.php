@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
 
     <!-- jQuery -->
-    <script src="/js/jquery.min.js" charset="utf-8"></script>
-    <script src="/js/validation.js" charset="utf-8"></script>
-    <script src="/js/pl.js" charset="utf-8"></script>
+    <script src="{{ asset('/js/jquery.min.js') }}" charset="utf-8"></script>
+    <script src="{{ asset('/js/validation.js') }}" charset="utf-8"></script>
+    <script src="{{ asset('/js/pl.js') }}" charset="utf-8"></script>
 
 </head>
 <body class="lang-pl">

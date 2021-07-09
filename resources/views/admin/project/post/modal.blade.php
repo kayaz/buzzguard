@@ -1,12 +1,12 @@
 {{ $content }}
 @if($file && $category == 'produktowy')
     <hr>
-    <img src="/uploads/posts/{{ $file }}" alt="">
+    <img src="{{ asset('/uploads/posts/{{ $file }}') }}" alt="">
 @endif
 @if($file && $category == 'film')
     <hr>
     <video width="320" height="240" controls>
-        <source src="/uploads/posts/{{ $file }}">
+        <source src="{{ asset('/uploads/posts/{{ $file }}') }}">
         Your browser does not support the video tag.
     </video>
     <style>
