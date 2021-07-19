@@ -47,9 +47,10 @@
                             <li class="list-group-item container">
                                 <div class="row">
                                     <div class="col-8">
-                                        {{$u->name}} {{$u->surname}} (limit: {{ $u->pivot->limit }})
+                                        {{$u->name}} {{$u->surname}}
+                                        <div class="user-limit">(limit dzienny: {{ $u->pivot->limit }} / limit proj.: {{ $u->pivot->limit_project }})</div>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end">
+                                    <div class="col-4 d-flex justify-content-end align-items-center">
                                         <div class="list-users-menu">
                                             @can('userproject-edit')
                                             <a href="{{route('admin.userproject.edit', ['user' => $u->pivot->id, 'project' => $project->id])}}"><i class="fe-edit"></i></a>

@@ -17,12 +17,24 @@ class PostController extends Controller
 {
     public function create(Project $project)
     {
-        return view('admin.project.post.form', [
-            'cardTitle' => 'Dodaj wpis',
-            'post_type' => PostType::all()->pluck('name', 'slug')->toArray(),
-            'project' => $project,
-            'backButton' => route('admin.project.show', $project)
-        ])->with('entry', Post::make());
+        $old_post = Post::where('project_id', '=', $project->id)->where('user_id', '=', Auth::id())->first(['age_group', 'seo', 'category', 'type']);
+
+        if ($old_post) {
+            return view('admin.project.post.form', [
+                'cardTitle' => 'Dodaj wpis',
+                'post_type' => PostType::all()->pluck('name', 'slug')->toArray(),
+                'project' => $project,
+                'entry' => $old_post,
+                'backButton' => route('admin.project.show', $project)
+            ]);
+        } else {
+            return view('admin.project.post.form', [
+                'cardTitle' => 'Dodaj wpis',
+                'post_type' => PostType::all()->pluck('name', 'slug')->toArray(),
+                'project' => $project,
+                'backButton' => route('admin.project.show', $project)])
+                ->with('entry', Post::make());
+        }
     }
 
     public function store(PostFormRequest $request)

@@ -26,7 +26,7 @@
                         @include('form-elements.html-select', ['label' => 'Nowy wątek', 'name' => 'thread', 'select' => array(0 => 'Nie', 1 => 'Tak'), 'selected' => $entry->thread, 'required' => 1])
                         @include('form-elements.input-text', ['label' => 'Link do wpisu', 'name' => 'url', 'value' => $entry->url, 'required' => 1])
                         @include('form-elements.input-text', ['label' => 'Nazwa strony', 'name' => 'website', 'value' => $entry->website, 'required' => 1])
-                        @include('form-elements.html-select', ['label' => 'Rodzaj wpisu', 'name' => 'type', 'select' => $post_type, 'selected' => $entry->thread, 'required' => 1])
+                        @include('form-elements.html-select', ['label' => 'Rodzaj wpisu', 'name' => 'type', 'select' => $post_type, 'selected' => $entry->type, 'required' => 1])
                         @include('form-elements.html-select', ['label' => 'Sentyment', 'name' => 'sentiment', 'select' => array(1 => 'Pozytywny', 2 => 'Neutralny', 3 => 'Negatywny', 4 => 'Nieoceniony'), 'selected' => $entry->sentiment, 'required' => 1])
                         @include('form-elements.html-select', ['label' => 'Reakcja na post', 'name' => 'reaction', 'select' => array(0 => 'Nie', 1 => 'Tak'), 'selected' => $entry->reaction, 'required' => 1])
                         @include('form-elements.html-select', ['label' => 'Grupa wiekowa', 'name' => 'age_group', 'select' => array(1 => '13-18', 2 => '19-25', 3 => '26-36', 4 => '37-45', 5 => '45-60'), 'selected' => $entry->age_group, 'required' => 1])

@@ -26,13 +26,13 @@ class IndexController extends Controller
                 return '<a href="'.$row->url.'" target="_blank"><i class="fe-link"></i></a><span class="d-none">'.$row->url.'</span>';
             })
             ->editColumn('thread', function ($row){
-                return ($row->thread) ? '<span class="online"></span><span class="d-none">'.$row->thread.'</span>' : '<span class="offline"></span><span class="d-none">'.$row->thread.'</span>';
+                return ($row->thread) ? 'Tak' : 'Nie';
             })
             ->editColumn('seo', function ($row){
-                return ($row->seo) ? '<span class="online"></span><span class="d-none">'.$row->seo.'</span>' : '<span class="offline"></span><span class="d-none">'.$row->seo.'</span>';
+                return ($row->seo) ? '<span class="online"></span>' : '<span class="offline"></span>';
             })
             ->editColumn('reaction', function ($row){
-                return ($row->reaction) ? '<span class="online"></span><span class="d-none">'.$row->reaction.'</span>' : '<span class="offline"></span><span class="d-none">'.$row->reaction.'</span>';
+                return ($row->reaction) ? '<span class="online"></span>' : '<span class="offline"></span>';
             })
             ->editColumn('age_group', function ($row){
                 return '<div class="text-center">'.age($row->age_group).'</div>';

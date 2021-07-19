@@ -13,6 +13,7 @@
             <table class="table data-table mb-0 w-100" id="sortable">
                 <thead class="thead-default">
                 <tr>
+                    <th>Lp.</th>
                     <th>Data</th>
                     <th class="colsearch">Autor</th>
                     <th class="colsearch">Nick</th>
@@ -65,37 +66,30 @@
                         });
                     });
                     $(document).ready(function(){
-                        $('.data-table').DataTable({
+                        const t = $('.data-table').DataTable({
                             processing: true,
-                            serverSide: true,
+                            serverSide: false,
                             responsive: true,
                             @role('Administrator')
-                                dom: 'Brtip',
-                                "buttons": [
-                                    {
-                                        extend: 'copyHtml5',
-                                        exportOptions: {
-                                            columns: ':visible'
+                            dom: 'Brtip',
+                            "buttons": [
+                                {
+                                    extend: 'excelHtml5',
+                                    header: false,
+                                    exportOptions: {
+                                        modifier: {
+                                            order: 'index',  // 'current', 'applied', 'index',  'original'
+                                            page: 'all',      // 'all',     'current'
+                                            search: 'applied'     // 'none', 'applied', 'removed'
                                         }
-                                    },
-                                    {
-                                        extend: 'excelHtml5',
-                                        exportOptions: {
-                                            columns: ':visible'
-                                        }
-                                    },
-                                    {
-                                        extend: 'pdfHtml5',
-                                        exportOptions: {
-                                            columns: ':visible'
-                                        }
-                                    },
-                                    'colvis',
-                                    'csv',
-                                ],
+                                    }
+                                },
+                                'csv',
+                                'colvis',
+                            ],
                             @else
-                                dom: '',
-                                "buttons": [],
+                            dom: 'tip',
+                            "buttons": [],
                             @endrole
                             language: {
                                 "url": "{{ asset('/js/polish.json') }}"
@@ -103,6 +97,7 @@
                             iDisplayLength: 30,
                             ajax: "{{ route('admin.post.show', $project->id) }}",
                             columns: [
+                                {data: null, defaultContent:''},
                                 {data: 'date', name: 'date'},
                                 {data: 'user_id', name: 'user_id'},
                                 {data: 'nick', name: 'nick'},
@@ -118,13 +113,13 @@
                             ],
                             bSort: false,
                             columnDefs: [
-                                { className: 'text-center', targets: [0, 2, 4, 5, 6, 7, 8, 11] },
-                                { className: 'select-column', targets: [2, 4, 6] },
+                                {className: 'text-center', targets: [0, 2, 4, 5, 6, 7, 8, 11]},
+                                {className: 'select-column', targets: [1, 2, 3, 4, 6]},
                             ],
                             initComplete: function () {
-                                this.api().columns('.select-column').every( function () {
+                                this.api().columns('.select-column').every(function () {
                                     const column = this;
-                                    const select = $('<select><option value="">'+ this.header().textContent +'</option></select>')
+                                    const select = $('<select><option value="">' + this.header().textContent + '</option></select>')
                                         .appendTo($(column.header()).empty())
                                         .on('change', function () {
                                             const val = $.fn.dataTable.util.escapeRegex(
@@ -136,18 +131,18 @@
                                                 .draw();
                                         });
 
-                                    column.data().unique().sort().each( function ( d, j ) {
-                                        select.append( '<option value="'+d+'">'+d+'</option>' )
-                                    } );
+                                    column.data().unique().sort().each(function (d, j) {
+                                        select.append('<option value="' + d + '">' + d + '</option>')
+                                    });
                                 });
                             },
-                            "drawCallback": function() {
+                            "drawCallback": function () {
                                 $('[data-toggle="tooltip"]').tooltip();
                                 $('[data-toggle="tooltip"]').click(function () {
                                     $('[data-toggle="tooltip"]').tooltip("hide");
                                 });
 
-                                $(".confirmForm").click(function(d) {
+                                $(".confirmForm").click(function (d) {
                                     d.preventDefault();
                                     const c = $(this).closest("form");
                                     const a = c.attr("action");
@@ -158,28 +153,30 @@
                                         buttons: {
                                             Tak: {
                                                 "class": "btn btn-primary",
-                                                action: function() {
+                                                action: function () {
                                                     $.ajax({
                                                         url: a,
                                                         type: "DELETE",
                                                         data: {
                                                             _token: b,
                                                         }
-                                                    }).done(function( data ) {
+                                                    }).done(function (data) {
                                                         location.href = data.href;
                                                     });
                                                 }
                                             },
                                             Nie: {
                                                 "class": "btn btn-secondary",
-                                                action: function() {}
+                                                action: function () {
+                                                }
                                             }
                                         }
                                     })
                                 });
 
-                                $(".show-modal").on("click", function(){
+                                $(".show-modal").on("click", function () {
                                     const userid = $(this).data('id');
+                                    $(this).closest('tr').addClass('tr-opened');
                                     $.ajax({
                                         url: '{{ route('admin.post.modal') }}',
                                         type: 'post',
@@ -187,7 +184,7 @@
                                             "_token": "{{ csrf_token() }}",
                                             "id": userid
                                         },
-                                        success: function(response){
+                                        success: function (response) {
                                             $('#empModal .modal-body').html(response);
                                             const myModal = new bootstrap.Modal(document.getElementById('empModal'));
                                             myModal.show();
@@ -196,6 +193,15 @@
                                 });
                             }
                         });
+                        t.on( 'order.dt search.dt', function () {
+                            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                                cell.innerHTML = i+1;
+                            } );
+                        } ).draw();
+                        const myModalEl = document.getElementById('empModal');
+                        myModalEl.addEventListener('hidden.bs.modal', function () {
+                            $('.data-table tr').removeClass('tr-opened');
+                        })
                     });
                 </script>
             @endpush
