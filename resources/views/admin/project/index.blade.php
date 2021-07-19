@@ -188,6 +188,12 @@
                                             $('#empModal .modal-body').html(response);
                                             const myModal = new bootstrap.Modal(document.getElementById('empModal'));
                                             myModal.show();
+
+                                            const myModalEl = document.getElementById('empModal');
+                                            myModalEl.addEventListener('hidden.bs.modal', function () {
+                                                $('.data-table tr').removeClass('tr-opened');
+                                            })
+
                                         }
                                     });
                                 });
@@ -197,11 +203,7 @@
                             t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                                 cell.innerHTML = i+1;
                             } );
-                        } ).draw();
-                        const myModalEl = document.getElementById('empModal');
-                        myModalEl.addEventListener('hidden.bs.modal', function () {
-                            $('.data-table tr').removeClass('tr-opened');
-                        })
+                        }).draw();
                     });
                 </script>
             @endpush
