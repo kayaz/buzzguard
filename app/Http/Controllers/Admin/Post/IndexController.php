@@ -29,10 +29,10 @@ class IndexController extends Controller
                 return ($row->thread) ? 'Tak' : 'Nie';
             })
             ->editColumn('seo', function ($row){
-                return ($row->seo) ? '<span class="online"></span>' : '<span class="offline"></span>';
+                return ($row->seo) ? '<span class="online"></span><i class="d-none">TAK</i>"' : '<span class="offline"></span><i class="d-none">NIE</i>';
             })
             ->editColumn('reaction', function ($row){
-                return ($row->reaction) ? '<span class="online"></span>' : '<span class="offline"></span>';
+                return ($row->reaction) ? '<span class="online"></span><i class="d-none">TAK</i>' : '<span class="offline"></span><i class="d-none">NIE</i>';
             })
             ->editColumn('age_group', function ($row){
                 return '<div class="text-center">'.age($row->age_group).'</div>';

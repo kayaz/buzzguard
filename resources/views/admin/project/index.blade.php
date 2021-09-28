@@ -75,16 +75,78 @@
                             "buttons": [
                                 {
                                     extend: 'excelHtml5',
-                                    header: false,
+                                    header: true,
                                     exportOptions: {
                                         modifier: {
                                             order: 'index',  // 'current', 'applied', 'index',  'original'
                                             page: 'all',      // 'all',     'current'
                                             search: 'applied'     // 'none', 'applied', 'removed'
+                                        },
+                                        format: {
+                                            header: function ( data, columnIdx ) {
+                                                if( data.indexOf('select') >= 0){
+                                                    if(columnIdx === 1) {
+                                                        return 'Data';
+                                                    }
+                                                    if(columnIdx === 2) {
+                                                        return 'Autor';
+                                                    }
+                                                    if(columnIdx === 3) {
+                                                        return 'Nick';
+                                                    }
+                                                    if(columnIdx === 4) {
+                                                        return 'Nowy wątek';
+                                                    }
+                                                    if(columnIdx === 5) {
+                                                        return 'Domena';
+                                                    }
+                                                    if(columnIdx === 7) {
+                                                        return 'Typ';
+                                                    }
+                                                } else {
+                                                    return data;
+                                                }
+                                            }
                                         }
                                     }
                                 },
-                                'csv',
+                                {
+                                    extend: 'csv',
+                                    header: true,
+                                    exportOptions: {
+                                        modifier: {
+                                            order: 'index',  // 'current', 'applied', 'index',  'original'
+                                            page: 'all',      // 'all',     'current'
+                                            search: 'applied'     // 'none', 'applied', 'removed'
+                                        },
+                                        format: {
+                                            header: function ( data, columnIdx ) {
+                                                if( data.indexOf('select') >= 0){
+                                                    if(columnIdx === 1) {
+                                                        return 'Data';
+                                                    }
+                                                    if(columnIdx === 2) {
+                                                        return 'Autor';
+                                                    }
+                                                    if(columnIdx === 3) {
+                                                        return 'Nick';
+                                                    }
+                                                    if(columnIdx === 4) {
+                                                        return columnIdx;
+                                                    }
+                                                    if(columnIdx === 5) {
+                                                        return 'Domena';
+                                                    }
+                                                    if(columnIdx === 7) {
+                                                        return 'Typ';
+                                                    }
+                                                } else {
+                                                    return data;
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
                                 'colvis',
                             ],
                             @else
@@ -114,7 +176,7 @@
                             bSort: false,
                             columnDefs: [
                                 {className: 'text-center', targets: [0, 2, 4, 5, 6, 7, 8, 11]},
-                                {className: 'select-column', targets: [1, 2, 3, 4, 6]},
+                                {className: 'select-column', targets: [1, 2, 3, 4, 5, 7]},
                             ],
                             initComplete: function () {
                                 this.api().columns('.select-column').every(function () {
@@ -200,8 +262,13 @@
                             }
                         });
                         t.on( 'order.dt search.dt', function () {
-                            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                                cell.innerHTML = i+1;
+                            const count = t.page.info().recordsDisplay;
+                            console.log(count);
+
+                            t.column(0, {
+                                search:'applied',
+                                order:'applied'}).nodes().each( function (cell, i) {
+                                cell.innerHTML = count - i
                             } );
                         }).draw();
                     });

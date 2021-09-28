@@ -14,6 +14,13 @@
                 </div>
 
                 <div class="col-12">
+                    <h3 class="mt-4"><i class="fe-bar-chart-line-"></i> Sentymenty</h3>
+                    <div class="chart">
+                        <div id="sentiments" style="width:auto;height:280px"></div>
+                    </div>
+                </div>
+
+                <div class="col-12">
                     <h3 class="mt-5"><i class="fe-bar-chart-line-"></i> Liczba postów wg. domeny</h3>
                     <div class="chart">
                         <div id="domeny" style="width:auto;height:280px"></div>
@@ -76,7 +83,7 @@
                 let chart2_data = google.visualization.arrayToDataTable([
                     ['Źródło', 'Ilość wpisów'],
                     @foreach($domains as $d)
-                    ['{{ $d->website }}', {{ $d->num }}],
+                    ['{{ $d->website }} ({{ $d->num }})', {{ $d->num }}],
                     @endforeach
                 ]);
                 const chart2_options = {
@@ -86,15 +93,19 @@
                 const chart2_chart = new google.visualization.ColumnChart(document.getElementById('domeny'));
                 chart2_chart.draw(chart2_data, chart2_options);
 
-                google.visualization.events.addListener(chart2_chart, 'select', selectHandler);
-                function selectHandler() {
-                    const selectedItem = chart2_chart.getSelection()[0];
-                    if (selectedItem) {
-                        const column = selectedItem.row;
-                        const topping = chart2_data.getValue(selectedItem.row, 0);
-                        location.href = "#";
-                    }
-                }
+                // 1 => 'Pozytywny', 2 => 'Neutralny', 3 => 'Negatywny', 4 => 'Nieoceniony'
+                let chart3_data = google.visualization.arrayToDataTable([
+                    ['Sentyment', 'Ilość wpisów'],
+                    @foreach($sentiments as $d)
+                    ['{{ sentiments($d->sentiment) }} ({{ $d->num }})', {{ $d->num }}],
+                    @endforeach
+                ]);
+                const chart3_options = {
+                    colors: ['#00acc1'],
+                    chartArea: { width: "100%", height: "60%" }
+                };
+                const chart3_chart = new google.visualization.ColumnChart(document.getElementById('sentiments'));
+                chart3_chart.draw(chart3_data, chart3_options);
             }
         </script>
     @endpush

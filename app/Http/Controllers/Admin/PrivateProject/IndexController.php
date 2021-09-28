@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin\PrivateProject;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PrivateFormRequest;
 
+use App\Models\MyPost;
 use App\Models\Year;
 use App\Models\MyProject;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -63,6 +65,12 @@ class IndexController extends Controller
         return view('admin.private.show', [
             'project' => $project
         ]);
+    }
+
+    public function modal(Request $request)
+    {
+        $id = $request->get('id');
+        return view('admin.project.post.modal', MyPost::find($id))->render();
     }
 
     public function destroy($id)

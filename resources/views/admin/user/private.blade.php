@@ -23,8 +23,8 @@
                             <div class="col-9">
                                 <div class="card-header border-bottom card-nav p-0">
                                     <ul class="nav">
-                                        <li><a class="nav-link pt-3 pb-3 active" href="{{route('admin.user.show', $user->id)}}"><span class="fe-folder"></span>Otwarte projekty</a></li>
-                                        <li><a class="nav-link pt-3 pb-3" href="{{route('admin.user.private', $user->id)}}"><span class="fe-briefcase"></span>Prywatne projekty</a></li>
+                                        <li><a class="nav-link pt-3 pb-3" href="{{route('admin.user.show', $user->id)}}"><span class="fe-folder"></span>Otwarte projekty</a></li>
+                                        <li><a class="nav-link pt-3 pb-3 active" href="{{route('admin.user.private', $user->id)}}"><span class="fe-briefcase"></span>Prywatne projekty</a></li>
                                     </ul>
                                 </div>
                                 <table class="table data-table mb-0 w-100" id="sortable">
@@ -40,7 +40,7 @@
                                     <tbody class="content">
                                     @foreach($projects as $pr)
                                         <tr>
-                                            <td><a href="{{ route('admin.project.show', $pr->id) }}">{{$pr->name}}</a></td>
+                                            <td><a href="{{ route('admin.user.private.show', $pr->id) }}">{{$pr->name}}</a></td>
                                             <td class="text-center">{{$pr->date_start}}</td>
                                             <td class="text-center">{{$pr->date_end}}</td>
                                             <td class="text-center">{!! status($pr->status) !!}</td>

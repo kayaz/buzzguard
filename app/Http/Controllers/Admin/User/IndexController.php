@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserFormRequest;
 
+use App\Models\MyProject;
+use App\Models\Project;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -54,6 +56,17 @@ class IndexController extends Controller
     {
         $projects = $user->userProjects()->get();
         return view('admin.user.show', ['projects' => $projects, 'user' => $user]);
+    }
+
+    public function private(User $user)
+    {
+        $projects = MyProject::where('user_id', $user->id)->get();
+        return view('admin.user.private', ['projects' => $projects, 'user' => $user]);
+    }
+
+    public function privateshow(MyProject $project)
+    {
+        return view('admin.user.privateshow', ['project' => $project]);
     }
 
     public function edit($id)

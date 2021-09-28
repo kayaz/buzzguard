@@ -38,6 +38,13 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
 
     });
 
+    // User
+    Route::group(['prefix'=>'/user', 'as' => 'user.'], function() {
+        Route::get('private/{user}', 'User\IndexController@private')->name('private');
+        Route::get('private/show/{project}', 'User\IndexController@privateshow')->name('private.show');
+    });
+
+
     // Year
     Route::group(['prefix'=>'/year', 'as' => 'year.'], function() {
         Route::get('closed/{year}', 'Year\IndexController@closed')->name('closed');
@@ -51,6 +58,8 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
 
     Route::group(['prefix'=>'/privatepost', 'as' => 'privatepost.'], function() {
         Route::get('{project}',     'PrivateProject\AjaxController@show')->name('show');
+        Route::get('/user/{project}',     'User\AjaxController@show')->name('user');
+        Route::post('modal',  'PrivateProject\IndexController@modal')->name('modal');
     });
 
     Route::group(['prefix'=>'/userproject', 'as' => 'userproject.'], function() {
