@@ -1374,6 +1374,23 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
 #sortable li.ui-sortable-placeholder {visibility:visible!important;background-color:#fff1b0;float:left;width:16.666667%;height:237px;margin:20px 0 0 0;border:1px dashed #d5d5d5;padding:0 15px;position: relative}
 ul#sortable li {padding-top:20px}
 #sortable li {width:16.666667%;padding:0 15px;float:left}
+#sortable .dropdown-menu li {width:100%;padding:5px;float:none}
+#sortable .dropdown-menu {
+    float: right;
+    min-width: auto;
+    padding: 0;
+    margin: .125rem 0 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0
+}
+#sortable .dropdown-toggle {
+    white-space: nowrap;
+    width: 42px;
+    background: #00acc1;
+    color: white;
+    border: 0;
+    padding: 4px;
+}
 
 .table td.option-120 {width:120px}
 .table th.position {width:65px}
@@ -1450,6 +1467,11 @@ ul#sortable li {padding-top:20px}
     }
     .about-project li .row a {
         font-size: 11px;
+    }
+}
+@media (max-width: 1279.98px) {
+    .btn-outline-primary {
+        padding: 10px 28px;
     }
 }
 @media screen and (max-width:768px) {

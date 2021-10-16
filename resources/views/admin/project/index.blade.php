@@ -25,7 +25,7 @@
                     <th class="text-center">Sentyment</th>
                     <th class="text-center">Reakcja</th>
                     <th class="text-center">Wiek</th>
-                    <th class="text-center" style="width:170px !important"></th>
+                    <th class="text-center" style="width:40px !important"></th>
                 </tr>
                 </thead>
                 <tbody class="content">
@@ -199,10 +199,10 @@
                                 });
                             },
                             "drawCallback": function () {
-                                $('[data-toggle="tooltip"]').tooltip();
-                                $('[data-toggle="tooltip"]').click(function () {
-                                    $('[data-toggle="tooltip"]').tooltip("hide");
-                                });
+                                // $('[data-toggle="tooltip"]').tooltip();
+                                // $('[data-toggle="tooltip"]').click(function () {
+                                //     $('[data-toggle="tooltip"]').tooltip("hide");
+                                // });
 
                                 $(".confirmForm").click(function (d) {
                                     d.preventDefault();
