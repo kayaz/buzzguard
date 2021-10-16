@@ -53,7 +53,6 @@ class User extends Authenticatable
 
     public function userProjects()
     {
-        //return $this->hasManyThrough(Project::class, UserProject::class, 'user_id', 'id', 'id', 'project_id');
-        return $this->belongsToMany(Project::class)->using(ProjectUser::class)->orderByDesc('projects.year');
+        return $this->belongsToMany(Project::class)->select(['projects.id', 'name', 'date_start', 'date_end', 'projects.status', 'year'])->using(ProjectUser::class)->orderByDesc('projects.year');
     }
 }

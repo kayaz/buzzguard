@@ -18,14 +18,12 @@ class CheckProject
     public function handle($request, Closure $next)
     {
 
-//        $id = Auth::id();
-//        $project = $request->route('project');
-//
-//        dd($project);
-//
-//        if (!$project->users->contains($id) && !Auth::user()->hasRole('Administrator')) {
-//            return redirect('/admin/dashboard');
-//        }
+        $id = Auth::id();
+        $project = $request->route('project');
+
+        if (!$project->users->contains($id) && !Auth::user()->hasRole('Administrator')) {
+            return redirect('/admin/dashboard');
+        }
 
         return $next($request);
     }

@@ -161,10 +161,11 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\Providers\HelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
+        App\Providers\ProjectServiceProvider::class,
         /*
          * Package Service Providers...
          */

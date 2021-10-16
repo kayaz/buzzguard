@@ -18,20 +18,36 @@
             <li>
                 <a class="nav-link" href="#"><span class="fe-list"></span>Aktualne projekty</a>
                 <ul class="submenu">
-                    @foreach(projectsMenu() as $p)
-                        @if($p->activeProjects->count() > 0)
+                    @role('Administrator')
+                        @foreach(projectsMenu() as $p)
+                            @if($p->activeProjects->count() > 0)
+                                <li class="has-submenu">
+                                    <a href="{{ route('admin.year.show', $p->year) }}">{{ $p->year }}</a>
+                                    <ul class="submenu">
+                                        @foreach($p->activeProjects as $pr)
+                                            <li><a href="{{ route('admin.project.show', $pr->id) }}" class="link-status-1">{{ $pr->name }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
+                        @endforeach
+                    @else
+                        @foreach($projects_years as $p)
                             <li class="has-submenu">
-                                <a href="{{ route('admin.year.show', $p->year) }}">{{ $p->year }}</a>
-                                <ul class="submenu">
-                                    @foreach($p->activeProjects as $pr)
-                                        <li><a href="{{ route('admin.project.show', $pr->id) }}" class="link-status-1">{{ $pr->name }}</a></li>
+                                <span>{{ $p }}</span>
+                                 <ul class="submenu">
+                                    @foreach($projects_dropdown as $pr)
+                                        @if($pr->year == $p)
+                                            <li><a href="{{ route('admin.project.show', $pr->id) }}" class="link-status-1">{{ $pr->name }}</a></li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </li>
-                        @endif
-                    @endforeach
+                        @endforeach
+                    @endrole
                 </ul>
             </li>
+            @role('Administrator')
             <li><a class="nav-link" href=""><span class="fe-lock"></span>Zamknięte projekty</a>
                 <ul class="submenu scrollable">
                     <li><a href="{{ route('admin.year.closed', 2016) }}">2016</a></li>
@@ -42,6 +58,7 @@
                     <li><a href="{{ route('admin.year.closed', 2021) }}">2021</a></li>
                 </ul>
             </li>
+            @endrole
             @can('clientgroup-list')
             <li><a class="nav-link" href=""><span class="fe-user"></span>Wg. klienta</a>
                 <ul class="submenu scrollable">

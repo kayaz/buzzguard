@@ -3,21 +3,9 @@
 namespace App\Providers;
 
 use Request;
+
 use Illuminate\Support\ServiceProvider;
 use Spatie\Activitylog\Models\Activity;
-
-use App\Models\Gallery;
-use App\Observers\GalleryObserver;
-
-use App\Models\Image;
-use App\Observers\ImageObserver;
-
-use App\Models\Article;
-use App\Observers\ArticleObserver;
-
-use App\Models\RodoClient;
-use App\Observers\RodoClientObserver;
-
 use App\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
@@ -59,7 +47,6 @@ class AppServiceProvider extends ServiceProvider
                     "referer"       => Request::header('referer'),
                     "methodType"    => Request::method()
             ]);
-
         });
     }
 }
