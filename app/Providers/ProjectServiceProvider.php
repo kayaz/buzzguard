@@ -26,7 +26,7 @@ class ProjectServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('*', function ($view) {
+        view()->composer('admin/submenu', function ($view) {
             $user = Auth::user();
             if($user) {
                 if (!$user->hasRole('Administrator')) {

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
 
-    public function show(Request $request, $id)
+    public function show(int $id)
     {
         $posts = Post::select()->where('project_id', '=', $id)->orderByDesc('id');
 
