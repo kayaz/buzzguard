@@ -8,7 +8,6 @@
             @endif
             @role('Administrator')
             <li><a href="{{ route('admin.project.post.move', [$row->project_id, $row->id]) }}" class="btn action-button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Przenieś wpis"><i class="fe-repeat"></i></a></li>
-            <li><a href="#" class="btn action-button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Oznacz wpis"><i class="fe-star"></i></a></li>
             @endrole
             <li><form method="POST" action="{{ route('admin.project.post.destroy', $row->id) }}" class="d-inline-flex">
                 {{ csrf_field() }}
