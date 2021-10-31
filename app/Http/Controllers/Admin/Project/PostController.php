@@ -37,7 +37,7 @@ class PostController extends Controller
         }
     }
 
-    public function store(PostFormRequest $request)
+    public function store(PostFormRequest $request, Project $project)
     {
         $request->merge([
             'user_id' => Auth::id(),
@@ -50,8 +50,6 @@ class PostController extends Controller
             $post->upload($request->nick, $request->file('file'));
         }
 
-        $project = Project::find($request->project_id);
-
         $event_array = [
             'project' => $project->name,
             'project_id' => $request->project_id,
@@ -59,7 +57,7 @@ class PostController extends Controller
         ];
         event(new Notifi($event_array));
 
-        return redirect(route('admin.project.show', $request->project_id));
+        return redirect(route('admin.project.show', $project));
     }
 
     public function edit(Project $project, Post $post)

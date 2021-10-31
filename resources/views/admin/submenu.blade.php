@@ -60,7 +60,7 @@
             </li>
             @endrole
             @can('clientgroup-list')
-            <li><a class="nav-link" href=""><span class="fe-user"></span>Wg. klienta</a>
+            <li><a class="nav-link" href=""><span class="fe-user"></span>Wg klienta</a>
                 <ul class="submenu scrollable">
                     @foreach(clientsMenu() as $c)
                     <li><a href="{{ route('admin.clientproject.show', $c->id) }}">{{$c->name}} {{$c->surname}}</a></li>
@@ -69,7 +69,7 @@
             </li>
             @endcan
             @can('group-list')
-            <li><a class="nav-link" href="{{ route('admin.group.index') }}"><span class="fe-briefcase"></span>Wg. grupy</a></li>
+            <li><a class="nav-link" href="{{ route('admin.group.index') }}"><span class="fe-briefcase"></span>Wg grupy</a></li>
             @endcan
         </ul>
     </div>

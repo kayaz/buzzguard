@@ -14,6 +14,7 @@
                 <thead class="thead-default">
                 <tr>
                     <th>Lp.</th>
+                    <th>★</th>
                     <th>Data</th>
                     <th class="colsearch">Autor</th>
                     <th class="colsearch">Nick</th>
@@ -86,22 +87,31 @@
                                             header: function ( data, columnIdx ) {
                                                 if( data.indexOf('select') >= 0){
                                                     if(columnIdx === 1) {
-                                                        return 'Data';
+                                                        return 'Wyróżnienie';
                                                     }
                                                     if(columnIdx === 2) {
-                                                        return 'Autor';
+                                                        return 'Data';
                                                     }
                                                     if(columnIdx === 3) {
-                                                        return 'Nick';
+                                                        return 'Autor';
                                                     }
                                                     if(columnIdx === 4) {
-                                                        return 'Nowy wątek';
+                                                        return 'Nick';
                                                     }
                                                     if(columnIdx === 5) {
+                                                        return 'Nowy wątek';
+                                                    }
+                                                    if(columnIdx === 6) {
                                                         return 'Domena';
                                                     }
-                                                    if(columnIdx === 7) {
+                                                    if(columnIdx === 8) {
                                                         return 'Typ';
+                                                    }
+                                                    if(columnIdx === 10) {
+                                                        return 'Sentyment';
+                                                    }
+                                                    if(columnIdx === 11) {
+                                                        return 'Reakcja';
                                                     }
                                                 } else {
                                                     return data;
@@ -123,22 +133,31 @@
                                             header: function ( data, columnIdx ) {
                                                 if( data.indexOf('select') >= 0){
                                                     if(columnIdx === 1) {
-                                                        return 'Data';
+                                                        return 'Wyróżnienie';
                                                     }
                                                     if(columnIdx === 2) {
-                                                        return 'Autor';
+                                                        return 'Data';
                                                     }
                                                     if(columnIdx === 3) {
-                                                        return 'Nick';
+                                                        return 'Autor';
                                                     }
                                                     if(columnIdx === 4) {
-                                                        return columnIdx;
+                                                        return 'Nick';
                                                     }
                                                     if(columnIdx === 5) {
+                                                        return columnIdx;
+                                                    }
+                                                    if(columnIdx === 6) {
                                                         return 'Domena';
                                                     }
-                                                    if(columnIdx === 7) {
+                                                    if(columnIdx === 8) {
                                                         return 'Typ';
+                                                    }
+                                                    if(columnIdx === 10) {
+                                                        return 'Sentyment';
+                                                    }
+                                                    if(columnIdx === 11) {
+                                                        return 'Reakcja';
                                                     }
                                                 } else {
                                                     return data;
@@ -160,6 +179,7 @@
                             ajax: "{{ route('admin.post.show', $project->id) }}",
                             columns: [
                                 {data: null, defaultContent:''},
+                                {data: 'status', name: 'status'},
                                 {data: 'date', name: 'date'},
                                 {data: 'user_id', name: 'user_id'},
                                 {data: 'nick', name: 'nick'},
@@ -175,8 +195,8 @@
                             ],
                             bSort: false,
                             columnDefs: [
-                                {className: 'text-center', targets: [0, 2, 4, 5, 6, 7, 8, 11]},
-                                {className: 'select-column', targets: [1, 2, 3, 4, 5, 7]},
+                                {className: 'text-center', targets: [0, 1, 3, 5, 6, 7, 8, 9, 10, 12]},
+                                {className: 'select-column', targets: [2, 3, 4, 5, 6, 8, 11]},
                             ],
                             initComplete: function () {
                                 this.api().columns('.select-column').every(function () {
@@ -259,6 +279,28 @@
                                         }
                                     });
                                 });
+
+                            @role('Administrator')
+                                $(".fe-star").on("click", function () {
+                                    const id = $(this).data('post');
+                                    console.log(id);
+                                    $.ajax({
+                                        url: '{{ route('admin.post.mark') }}',
+                                        type: 'post',
+                                        data: {
+                                            "_token": "{{ csrf_token() }}",
+                                            "id": id
+                                        },
+                                        success: function (response) {
+                                            if(response.status === 0) {
+                                                $('.fe-star[data-post="'+id+'"]').removeClass('fe-star-on');
+                                            } else {
+                                                $('.fe-star[data-post="'+id+'"]').addClass('fe-star-on');
+                                            }
+                                        }
+                                    });
+                                });
+                            @endrole
                             }
                         });
                         t.on( 'order.dt search.dt', function () {

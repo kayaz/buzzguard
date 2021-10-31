@@ -17,7 +17,11 @@ class IndexController extends Controller
 
         return Datatables::of($posts)
             ->addColumn('user_id', function (Post $post) {
-                return $post->users->surname.' '.$post->users->name;
+                if($post->users) {
+                    return $post->users->surname . ' ' . $post->users->name;
+                } else {
+                    return 'Brak autora';
+                }
             })
             ->addColumn('actions', function ($row) {
                 return view('admin.project.datatables.actions', ['row' => $row]);
@@ -28,11 +32,11 @@ class IndexController extends Controller
             ->editColumn('thread', function ($row){
                 return ($row->thread) ? 'Tak' : 'Nie';
             })
-            ->editColumn('seo', function ($row){
-                return ($row->seo) ? '<span class="online"></span><i class="d-none">TAK</i>"' : '<span class="offline"></span><i class="d-none">NIE</i>';
+            ->editColumn('status', function ($row){
+                return ($row->status) ? '<i class="fe-star fe-star-on" data-post="'.$row->id.'"></i>' : '<i class="fe-star" data-post="'.$row->id.'"></i>';
             })
-            ->editColumn('reaction', function ($row){
-                return ($row->reaction) ? '<span class="online"></span><i class="d-none">TAK</i>' : '<span class="offline"></span><i class="d-none">NIE</i>';
+            ->editColumn('seo', function ($row){
+                return ($row->seo) ? '<span class="online"></span><i class="d-none">TAK</i>' : '<span class="offline"></span><i class="d-none">NIE</i>';
             })
             ->editColumn('age_group', function ($row){
                 return '<div class="text-center">'.age($row->age_group).'</div>';
@@ -40,7 +44,10 @@ class IndexController extends Controller
             ->editColumn('sentiment', function ($row){
                 return sentiment($row->sentiment);
             })
-            ->rawColumns(['thread', 'reaction', 'seo', 'age_group', 'sentiment', 'url', 'actions'])
+            ->editColumn('reaction', function ($row){
+                return ($row->thread) ? 'Tak' : 'Nie';
+            })
+            ->rawColumns(['thread', 'reaction', 'seo', 'age_group', 'sentiment', 'url', 'actions', 'status'])
             ->make(true);
     }
 
@@ -48,6 +55,20 @@ class IndexController extends Controller
     {
         $id = $request->get('id');
         return view('admin.project.post.modal', Post::find($id))->render();
+    }
+
+    public function mark(Request $request)
+    {
+        $id = $request->get('id');
+        $post = Post::find($id);
+
+        if($post->status == 1){
+            $post->update(['status' => 0]);
+            return ['success' => true, 'status' => 0];
+        } else {
+            $post->update(['status' => 1]);
+            return ['success' => true, 'status' => 1];
+        }
     }
 
 }

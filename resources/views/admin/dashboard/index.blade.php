@@ -25,7 +25,8 @@
             $(document).ready(function(){
                 let route = "/admin/autocomplete";
                 $('#project').typeahead({
-                    limit: 10,
+                    limit: 20,
+                    items: 20,
                     source:  function (term, process) {
                         return $.get(route, { term: term }, function (data) {
                             return process(data);

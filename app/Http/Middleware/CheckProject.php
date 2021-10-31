@@ -21,8 +21,10 @@ class CheckProject
         $id = Auth::id();
         $route_project = $request->route('project');
 
-        if (!$route_project->users->contains($id) && !Auth::user()->hasRole('Administrator')) {
-            return redirect('/admin/dashboard');
+        if($route_project) {
+            if (!$route_project->users->contains($id) && !Auth::user()->hasRole('Administrator')) {
+                return redirect('/admin/dashboard');
+            }
         }
 
         return $next($request);

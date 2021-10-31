@@ -1226,7 +1226,8 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
     align-items: center;
     justify-content: center;
     line-height: normal;
-    width: 120px
+    width: 120px;
+    margin: 0 auto
 }
 .badge.inwest-list-status-1 {background:green}
 .badge.inwest-list-status-2 {background:#940000}
@@ -1278,6 +1279,10 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
 }
 .online, .offline {width:12px;height:12px;display:block;border-radius:50%;margin: 7px auto 0;background:#00acc1}
 .offline {background:#c6c6c6}
+.fe-star.fe-star-on {
+    color: #00acc1;
+}
+
 .table tr.submenu td:first-child:before {
     content: "\21b3";
     font-size: 20px
@@ -1301,9 +1306,11 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
     transition: none;
     display: none;
 }
-
 .typeahead {
     width: 100%;
+    height: 300px;
+    overflow-x: auto;
+    overflow-y: scroll;
 }
 .dropdown-item strong {
     background: #00acc1;
