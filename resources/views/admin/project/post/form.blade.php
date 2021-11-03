@@ -32,6 +32,11 @@
                         @include('form-elements.html-select', ['label' => 'Grupa wiekowa', 'name' => 'age_group', 'select' => array(1 => '13-18', 2 => '19-25', 3 => '26-36', 4 => '37-45', 5 => '45-60'), 'selected' => $entry->age_group, 'required' => 1])
                         @include('form-elements.html-select', ['label' => 'SEO WoMM', 'name' => 'seo', 'select' => array(0 => 'Nie', 1 => 'Tak'), 'selected' => $entry->seo, 'required' => 1])
                         @include('form-elements.html-select', ['label' => 'Kategoria', 'name' => 'category', 'select' => array('nieproduktowy' => 'Post', 'produktowy' => 'Zdjęcie', 'film' => 'Film'), 'selected' => $entry->category, 'required' => 1])
+
+                        @if ($project->keyword != "")
+                        @include('form-elements.html-select', ['label' => 'Słowo kluczowe', 'name' => 'keyword', 'select' => $project->keyword, 'selected' => $entry->keyword])
+                        @endif
+
                         @include('form-elements.input-file', ['label' => 'Załącznik', 'sublabel' => 'max. waga pliku: ', 'name' => 'file'])
                         @include('form-elements.textarea', ['label' => 'Treść wpisu', 'name' => 'content', 'value' => $entry->content, 'rows' => 8, 'required' => 1])
                         @include('form-elements.textarea', ['label' => 'Dodatkowe informacje', 'name' => 'additional', 'value' => $entry->additional, 'rows' => 5])

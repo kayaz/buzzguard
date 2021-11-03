@@ -66,6 +66,16 @@ class Project extends Model
         return $this->hasMany(ProjectUser::class, 'project_id', 'id');
     }
 
+    public function getKeywordAttribute()
+    {
+        $array = explode(',', $this->attributes['keywords']);
+        $results = array();
+        foreach ($array as $a) {
+            $results[$a] = $a;
+        }
+        return $results;
+    }
+
     public static function boot() {
         parent::boot();
 

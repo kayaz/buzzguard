@@ -31,6 +31,7 @@ class Post extends Model
         'additional',
         'category',
         'seo',
+        'keyword',
         'file',
         'status'
     ];

@@ -47,10 +47,8 @@ class IndexController extends Controller
         return redirect(route('admin.project.show', $id));
     }
 
-    public function edit($id)
+    public function edit(Project $project)
     {
-        $project = Project::find($id);
-
         $years = Year::orderByDesc('year')->get()->pluck('year','year');
         $clients = User::where('client', 1)->pluck('name', 'id');
 
