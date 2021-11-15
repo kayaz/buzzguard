@@ -30,10 +30,7 @@ class IndexController extends Controller
                 return '<a href="'.$row->url.'" target="_blank"><i class="fe-link"></i></a><span class="d-none">'.$row->url.'</span>';
             })
             ->editColumn('thread', function ($row){
-                return ($row->thread) ? 'Tak' : 'Nie';
-            })
-            ->editColumn('status', function ($row){
-                return ($row->status) ? '<i class="fe-star fe-star-on" data-post="'.$row->id.'"></i>' : '<i class="fe-star" data-post="'.$row->id.'"></i>';
+                return ($row->thread) ? '<span class="online"></span><i class="d-none">TAK</i>' : '<span class="offline"></span><i class="d-none">NIE</i>';
             })
             ->editColumn('seo', function ($row){
                 return ($row->seo) ? '<span class="online"></span><i class="d-none">TAK</i>' : '<span class="offline"></span><i class="d-none">NIE</i>';
@@ -44,8 +41,12 @@ class IndexController extends Controller
             ->editColumn('sentiment', function ($row){
                 return sentiment($row->sentiment);
             })
+            ->editColumn('status', function ($row){
+                //return ($row->status) ? '<span class="fe-star fe-star-on" data-post="'.$row->id.'"></span><i class="d-none">TAK</i>' : '<span class="fe-star" data-post="'.$row->id.'"></span><i class="d-none">NIE</i>';
+                return ($row->status) ? '<span class="fe-star fe-star-on"></span><i class="d-none">TAK</i>' : '<span class="fe-star"></span><i class="d-none">NIE</i>';
+            })
             ->editColumn('reaction', function ($row){
-                return ($row->thread) ? 'Tak' : 'Nie';
+                return ($row->thread) ? '<span class="online"></span><i class="d-none">TAK</i>' : '<span class="offline"></span><i class="d-none">NIE</i>';
             })
             ->rawColumns(['thread', 'reaction', 'seo', 'age_group', 'sentiment', 'url', 'actions', 'status'])
             ->make(true);

@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" @if (Cookie::get('darkmode') == '1')class="dark-mode"@endif>
 <head>
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>kCMS 4.1</title>
+    <title>BuzzGuard</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="robots" content="noindex, nofollow">
@@ -19,7 +19,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/admin.css?v=15112021') }}">
 
     <!-- jQuery -->
     <script src="{{ asset('/js/jquery.min.js') }}" charset="utf-8"></script>

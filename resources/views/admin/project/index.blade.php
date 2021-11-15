@@ -14,7 +14,7 @@
                 <thead class="thead-default">
                 <tr>
                     <th>Lp.</th>
-                    <th>★</th>
+                    <th class="th-star">★</th>
                     <th>Data</th>
                     <th class="colsearch">Autor</th>
                     <th class="colsearch">Nick</th>
@@ -195,8 +195,8 @@
                             ],
                             bSort: false,
                             columnDefs: [
-                                {className: 'text-center', targets: [0, 1, 3, 5, 6, 7, 8, 9, 10, 12]},
-                                {className: 'select-column', targets: [2, 3, 4, 5, 6, 8, 11]},
+                                {className: 'text-center', targets: [0, 1, 5, 6, 7, 8, 9, 10, 12]},
+                                {className: 'select-column', targets: [1, 2, 3, 4, 5, 6, 8, 10, 11]},
                             ],
                             initComplete: function () {
                                 this.api().columns('.select-column').every(function () {
@@ -213,10 +213,28 @@
                                                 .draw();
                                         });
 
-                                    column.data().unique().sort().each(function (d, j) {
-                                        select.append('<option value="' + d + '">' + d + '</option>')
+                                    column.data().unique().sort().each(function (value) {
+
+                                        if (value.indexOf("span") >= 0) {
+                                             value = value.replace(/<[^>]+>/g, '');
+                                        }
+
+                                        select.append('<option value="' + value + '">' + value + '</option>')
+
                                     });
                                 });
+
+                                $('<button class="dt-button buttons-refresh">Odśwież tabelę</button>').appendTo('div.dt-buttons');
+
+                                $(".buttons-refresh").click(function () {
+                                    t.ajax.reload();
+                                });
+                            },
+                            "rowCallback": function(row, data) {
+
+                                const id_post = data['id'];
+                                $('span.fe-star', row).attr('data-post', id_post);
+
                             },
                             "drawCallback": function () {
                                 // $('[data-toggle="tooltip"]').tooltip();
@@ -258,6 +276,7 @@
 
                                 $(".show-modal").on("click", function () {
                                     const userid = $(this).data('id');
+                                    $('.data-table tr').removeClass('tr-opened');
                                     $(this).closest('tr').addClass('tr-opened');
                                     $.ajax({
                                         url: '{{ route('admin.post.modal') }}',
@@ -273,7 +292,7 @@
 
                                             const myModalEl = document.getElementById('empModal');
                                             myModalEl.addEventListener('hidden.bs.modal', function () {
-                                                $('.data-table tr').removeClass('tr-opened');
+
                                             })
 
                                         }
@@ -281,9 +300,9 @@
                                 });
 
                             @role('Administrator')
-                                $(".fe-star").on("click", function () {
+                                $(".fe-star").off('click').on("click", function () {
                                     const id = $(this).data('post');
-                                    console.log(id);
+
                                     $.ajax({
                                         url: '{{ route('admin.post.mark') }}',
                                         type: 'post',
@@ -292,6 +311,7 @@
                                             "id": id
                                         },
                                         success: function (response) {
+                                            console.log(response);
                                             if(response.status === 0) {
                                                 $('.fe-star[data-post="'+id+'"]').removeClass('fe-star-on');
                                             } else {
@@ -299,14 +319,14 @@
                                             }
                                         }
                                     });
+
+                                    return false;
                                 });
                             @endrole
                             }
                         });
                         t.on( 'order.dt search.dt', function () {
                             const count = t.page.info().recordsDisplay;
-                            console.log(count);
-
                             t.column(0, {
                                 search:'applied',
                                 order:'applied'}).nodes().each( function (cell, i) {

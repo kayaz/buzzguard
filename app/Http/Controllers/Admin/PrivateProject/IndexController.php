@@ -40,30 +40,35 @@ class IndexController extends Controller
         return redirect(route('admin.project.private.index'));
     }
 
-    public function edit($id)
+    public function edit(MyProject $privateProject)
     {
-        $project = MyProject::find($id);
+        $this->authorize('privateProject', $privateProject);
+
         $years = Year::orderByDesc('year')->get()->pluck('year','year');
 
         return view('admin.private.form', [
-            'entry' => $project,
+            'entry' => $privateProject,
             'cardTitle' => 'Edytuj',
             'years' => $years,
-            'selected_year' => $project->year,
+            'selected_year' => $privateProject->year,
             'backButton' => route('admin.project.private.index')
         ]);
     }
 
-    public function update(PrivateFormRequest $request, MyProject $project)
+    public function update(PrivateFormRequest $request, MyProject $privateProject)
     {
-        $project->update($request->except(['_token', 'submit']));
+        $this->authorize('privateProject', $privateProject);
+
+        $privateProject->update($request->except(['_token', 'submit']));
         return redirect(route('admin.project.private.index'));
     }
 
-    public function show(MyProject $project)
+    public function show(MyProject $privateProject)
     {
+        $this->authorize('privateProject', $privateProject);
+
         return view('admin.private.show', [
-            'project' => $project
+            'privateProject' => $privateProject
         ]);
     }
 

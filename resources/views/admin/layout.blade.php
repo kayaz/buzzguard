@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" @if (Cookie::get('darkmode') == '1')class="dark-mode"@endif>
 <head>
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
@@ -20,7 +20,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/admin.css?v=15112021') }}">
 
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
@@ -36,7 +36,6 @@
 </head>
 <body class="lang-pl">
 
-
 <div id="admin">
     <div id="content">
         <header id="header-navbar">
@@ -44,6 +43,13 @@
 
             <div class="user">
                 <ul class="mb-0 list-unstyled">
+                    <li class="theme-toggle">
+                        @if (Cookie::get('darkmode') == '1')
+                        <span class="fe-sun" data-theme="moon"></span>
+                        @else
+                        <span class="fe-moon" data-theme="sun"></span>
+                        @endif
+                    </li>
                     <li><span class="fe-calendar"></span> <span id="livedate"><?=date('d-m-Y');?></span></li>
                     <li><span class="fe-clock"></span> <span id="liveclock"></span></li>
                     <li class="dropdown">
@@ -85,7 +91,7 @@
 <script src="{{ asset('/js/jquery.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('/js/bootstrap.bundle.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('/js/jquery-ui.min.js') }}" charset="utf-8"></script>
-<script src="{{ asset('/js/cms.js') }}" charset="utf-8"></script>
+<script src="{{ asset('/js/cms.js?v=15112021') }}" charset="utf-8"></script>
 
 <script type="text/javascript">
     const notificationsWrapper = $('.user .badge-pill');
@@ -95,11 +101,26 @@
         notificationsWrapper.hide();
     }
 
-    channel.bind('project-status', function(data) {
+    channel.bind('project-status', function() {
         notificationsCount += 1;
         notificationsWrapper.attr('data-count', notificationsCount);
         notificationsWrapper.text(notificationsCount);
         notificationsWrapper.show();
+    });
+
+    $(".theme-toggle span").click(function () {
+        const theme = $(this).data("theme");
+        const cc = $.cookie('darkmode');
+        if (cc === '1') {
+            $.cookie('darkmode', '0', { path: '/' });
+            $('html').removeClass('dark-mode');
+            $(this).removeClass('fe-sun').addClass('fe-moon');
+        } else {
+            $.cookie('darkmode', '1', { path: '/' });
+            $('html').addClass('dark-mode');
+            $(this).removeClass('fe-moon').addClass('fe-sun');
+        }
+        console.log(theme);
     });
 </script>
 

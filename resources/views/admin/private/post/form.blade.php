@@ -4,7 +4,7 @@
 <form method="POST" action="{{route('admin.project.private.post.update', $entry)}}" enctype="multipart/form-data">
 @method('PUT')
 @else
-<form method="POST" action="{{route('admin.project.private.post.store', $project)}}" enctype="multipart/form-data">
+<form method="POST" action="{{route('admin.project.private.post.store', $privateProject)}}" enctype="multipart/form-data">
 @endif
 @csrf
     <div class="container">
@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-12 pl-0">
                         <h4 class="page-title row">
-                            <i class="fe-home"></i><a href="{{ route('admin.project.private.show', $project) }}">{{$project->name}}</a><span class="d-inline-flex ml-2 mr-2">/</span>{{ $cardTitle }}
+                            <i class="fe-home"></i><a href="{{ route('admin.project.private.show', $privateProject) }}">{{$privateProject->name}}</a><span class="d-inline-flex ml-2 mr-2">/</span>{{ $cardTitle }}
                         </h4>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" name="project_id" value="{{$project->id}}">
+    <input type="hidden" name="project_id" value="{{$privateProject->id}}">
     @include('form-elements.submit', ['name' => 'submit', 'value' => 'Zapisz'])
 </form>
 @endsection

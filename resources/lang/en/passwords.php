@@ -18,5 +18,6 @@ return [
     'throttled' => 'Proszę zaczekać zanim spróbujesz ponownie.',
     'token'     => 'Token resetowania hasła jest nieprawidłowy.',
     'user'      => 'Nie znaleziono użytkownika z takim adresem e-mail.',
+    'sendButton' => 'Wyślij link do zmiany hasła'
 
 ];

@@ -15,4 +15,8 @@ return [
     'failed'   => 'Błędny login lub hasło.',
     'password' => 'Podane hasło jest nieprawidłowe.',
     'throttle' => 'Za dużo nieudanych prób logowania. Proszę spróbować za :seconds sekund.',
+    'forgot' => 'Zapomniałeś hasła?',
+    'remeber' => 'Zapamiętaj mnie',
+    'login' => 'Adres e-mail',
+    'pwd' => 'Hasło'
 ];

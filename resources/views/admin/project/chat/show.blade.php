@@ -47,7 +47,7 @@
                         {!! $topic->content !!}
 
                         <div class="forum-single-footer pt-3">
-                            <a href="{{ route('admin.project.chat.edit', ['project' => $project, 'chat' => $topic]) }}" data-toggle="tooltip" data-placement="top" title="Edytuj wpis"><i class="fe-edit"></i> Edytuj</a>
+                            <a href="{{ route('admin.project.chat.edit', ['project' => $project, 'chat' => $topic]) }}" class="btn edit-button" data-toggle="tooltip" data-placement="top" title="Edytuj wpis"><i class="fe-edit"></i> Edytuj</a>
                             <form method="POST" action="{{ route('admin.project.chat.destroy', ['project' => $project, 'chat' => $topic]) }}" class="d-inline-flex">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
@@ -92,8 +92,8 @@
                         {!! $p->content !!}
                     </div>
                     <div class="forum-post-footer">
-                        <a href="{{ route('admin.project.reply.edit', [$project, $topic, $p])}}" data-toggle="tooltip" data-placement="top" title="Edytuj wpis"><i class="fe-edit"></i> Edytuj</a>
-                        <a href="{{ route('admin.project.reply.helpful', $p)}}" data-toggle="tooltip" data-placement="top" title="Ten wpis jest pomocny">
+                        <a href="{{ route('admin.project.reply.edit', [$project, $topic, $p])}}" data-toggle="tooltip" data-placement="top" title="Edytuj wpis" class="btn edit-button"><i class="fe-edit"></i> Edytuj</a>
+                        <a href="{{ route('admin.project.reply.helpful', $p)}}" data-toggle="tooltip" data-placement="top" title="Ten wpis jest pomocny" class="btn edit-button">
                             @if($p->status == 0)
                             <i class="fe-thumbs-up"></i> Pomocny
                             @else

@@ -4,8 +4,8 @@
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-12">
-                <h2>{{$project->name}}</h2>
-                <h4 class="mb-5">Ilość postów: {{$project->posts()->count()}}</h4>
+                <h2>{{$privateProject->name}}</h2>
+                <h4 class="mb-5">Ilość postów: {{$privateProject->posts()->count()}}</h4>
             </div>
             <div class="col-6">
                 <div class="d-flex justify-content-start pb-3">
@@ -14,7 +14,7 @@
             </div>
             <div class="col-6">
                 <div class="d-flex justify-content-end pb-3">
-                    <a href="{{ route('admin.project.private.post.create', $project) }}" class="btn btn-lg btn-primary"><i class="fe-file-plus"></i> Dodaj post</a>
+                    <a href="{{ route('admin.project.private.post.create', $privateProject) }}" class="btn btn-lg btn-primary"><i class="fe-file-plus"></i> Dodaj post</a>
                 </div>
             </div>
             <div class="col-12">
@@ -40,6 +40,24 @@
                     </tbody>
                 </table>
 
+                <!-- Modal -->
+                <div class="modal fade" id="empModal" role="dialog" aria-labelledby="postlabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title mb-0" id="postlabel">Podgląd wpisu</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="fe-x-square"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 @push('scripts')
                     <script src="{{ asset('/js/jquery.dataTables.min.js') }}" charset="utf-8"></script>
                     <script>
@@ -58,7 +76,7 @@
                                     "url": "/js/polish.json"
                                 },
                                 iDisplayLength: 30,
-                                ajax: "{{ route('admin.privatepost.show', $project->id) }}",
+                                ajax: "{{ route('admin.privatepost.show', $privateProject->id) }}",
                                 columns: [
                                     {data: 'id', name: 'id'},
                                     {data: 'date', name: 'date'},
@@ -75,9 +93,34 @@
                                     {data: 'actions', name: 'actions'}
                                 ],
                                 "drawCallback": function() {
-                                    $('[data-toggle="tooltip"]').tooltip();
-                                    $('[data-toggle="tooltip"]').click(function () {
-                                        $('[data-toggle="tooltip"]').tooltip("hide");
+                                    let $tooltipElement = jQuery('[data-toggle="tooltip"]');
+                                    $tooltipElement.tooltip();
+                                    $tooltipElement.click(function () {
+                                        $tooltipElement.tooltip("hide");
+                                    });
+
+                                    $(".show-modal").on("click", function () {
+                                        const userid = $(this).data('id');
+                                        $(this).closest('tr').addClass('tr-opened');
+                                        $.ajax({
+                                            url: '{{ route('admin.privatepost.modal') }}',
+                                            type: 'post',
+                                            data: {
+                                                "_token": "{{ csrf_token() }}",
+                                                "id": userid
+                                            },
+                                            success: function (response) {
+                                                $('#empModal .modal-body').html(response);
+                                                const myModal = new bootstrap.Modal(document.getElementById('empModal'));
+                                                myModal.show();
+
+                                                const myModalEl = document.getElementById('empModal');
+                                                myModalEl.addEventListener('hidden.bs.modal', function () {
+                                                    $('.data-table tr').removeClass('tr-opened');
+                                                })
+
+                                            }
+                                        });
                                     });
 
                                     $(".confirmForm").click(function(d) {

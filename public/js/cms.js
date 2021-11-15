@@ -9,6 +9,93 @@
 // Potwierdzenie
 (function(a){a.confirm=function(c){if(a("#confirmOverlay").length){return false}var f="";a.each(c.buttons,function(h,g){f+='<a href="#" class="'+g["class"]+'">'+h+"<span></span></a>";if(!g.action){g.action=function(){}}});var e=['<div id="confirmOverlay">','<div class="modal fade show" id="confirmBox"><div class="modal-dialog modal-dialog-centered"><div class="modal-content">','<div class="modal-header"><h5 class="modal-title">',c.title,"</h5></div>",'<div class="modal-body">',c.message,"</div>",'<div id="confirmButtons" class="modal-footer">',f,"</div></div></div>"].join("");a(e).hide().appendTo("body").fadeIn();var b=a("#confirmBox .btn"),d=0;a.each(c.buttons,function(g,h){b.eq(d++).click(function(){h.action();a.confirm.hide();return false})})};a.confirm.hide=function(){a("#confirmOverlay").fadeOut(function(){a(this).remove()})}})(jQuery);
 
+// Cookie
+(function(e) {
+    if (typeof define === "function" && define.amd) {
+        define(["jquery"], e)
+    } else {
+        e(jQuery)
+    }
+})(function(e) {
+    const u = e.cookie = function(t, s, a) {
+        if (s !== undefined && !e.isFunction(s)) {
+            a = e.extend({}, u.defaults, a);
+            if (typeof a.expires === "number") {
+                var f = a.expires,
+                    l = a.expires = new Date;
+                l.setTime(+l + f * 864e5)
+            }
+            return document.cookie = [n(t), "=", i(s), a.expires ? "; expires=" + a.expires.toUTCString() : "", a.path ? "; path=" + a.path : "", a.domain ? "; domain=" + a.domain : "", a.secure ? "; secure" : ""].join("")
+        }
+        var c = t ? undefined : {};
+        var h = document.cookie ? document.cookie.split("; ") : [];
+        for (var p = 0, d = h.length; p < d; p++) {
+            var v = h[p].split("=");
+            var m = r(v.shift());
+            var g = v.join("=");
+            if (t && t === m) {
+                c = o(g, s);
+                break
+            }
+            if (!t && (g = o(g)) !== undefined) {
+                c[m] = g
+            }
+        }
+        return c
+    };
+    const t = /\+/g;
+
+    function n(e) {
+        return u.raw ? e : encodeURIComponent(e)
+    }
+
+    function r(e) {
+        return u.raw ? e : decodeURIComponent(e)
+    }
+
+    function i(e) {
+        return n(u.json ? JSON.stringify(e) : String(e))
+    }
+
+    function s(e) {
+        if (e.indexOf('"') === 0) {
+            e = e.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\")
+        }
+        try {
+            e = decodeURIComponent(e.replace(t, " "));
+            return u.json ? JSON.parse(e) : e
+        } catch (n) {}
+    }
+
+    function o(t, n) {
+        const r = u.raw ? t : s(t);
+        return e.isFunction(n) ? n(r) : r
+    }
+
+    u.defaults = {};
+    e.removeCookie = function(t, n) {
+        if (e.cookie(t) === undefined) {
+            return false
+        }
+        e.cookie(t, "", e.extend({}, n, {
+            expires: -1
+        }));
+        return !e.cookie(t)
+    }
+});
+
+function getCookie(b) {
+    let c, a, e, d = document.cookie.split(";");
+    for (c = 0; c < d.length; c++) {
+        a = d[c].substr(0, d[c].indexOf("="));
+        e = d[c].substr(d[c].indexOf("=") + 1);
+        a = a.replace(/^\s+|\s+$/g, "");
+        if (a === b) {
+            return unescape(e)
+        }
+    }
+}
+
 function show5(){if(document.layers||document.all||document.getElementById){var e=new Date,c=e.getHours(),o=e.getMinutes(),t=e.getSeconds();0==c&&(c=12),o<=9&&(o="0"+o),t<=9&&(t="0"+t),myclock=c+":"+o+":"+t+" ",document.layers?(document.layers.liveclock.document.write(myclock),document.layers.liveclock.document.close()):document.all?liveclock.innerHTML=myclock:document.getElementById&&(document.getElementById("liveclock").innerHTML=myclock),setTimeout("show5()",1e3)}}window.onload=show5;
 
 function domain_from_url(url) {

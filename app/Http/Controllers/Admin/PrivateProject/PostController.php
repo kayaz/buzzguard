@@ -14,13 +14,15 @@ use App\Models\MyProject;
 
 class PostController extends Controller
 {
-    public function create(MyProject $project)
+    public function create(MyProject $privateProject)
     {
+        $this->authorize('privateProject', $privateProject);
+
         return view('admin.private.post.form', [
             'cardTitle' => 'Dodaj wpis',
             'post_type' => PostType::all()->pluck('name', 'slug')->toArray(),
-            'project' => $project,
-            'backButton' => route('admin.project.private.show', $project)
+            'privateProject' => $privateProject,
+            'backButton' => route('admin.project.private.show', $privateProject)
         ])->with('entry', MyProject::make());
     }
 
@@ -40,15 +42,16 @@ class PostController extends Controller
         return redirect(route('admin.project.private.show', $request->project_id));
     }
 
-    public function edit(MyProject $project, MyPost $post)
+    public function edit(MyProject $privateProject, MyPost $post)
     {
+        $this->authorize('privateProject', $privateProject);
 
         return view('admin.private.post.form', [
             'cardTitle' => 'Dodaj wpis',
             'post_type' => PostType::all()->pluck('name', 'slug')->toArray(),
-            'project' => $project,
+            'privateProject' => $privateProject,
             'entry' => $post,
-            'backButton' => route('admin.project.private.show', $project)
+            'backButton' => route('admin.project.private.show', $privateProject)
         ]);
     }
 

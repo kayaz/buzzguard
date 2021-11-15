@@ -23,7 +23,7 @@ class ReplyController extends Controller
         ])->with('entry', Chat::make());
     }
 
-    public function store(ReplyFormRequest $request)
+    public function store(ReplyFormRequest $request, Project $project)
     {
         $request->merge([
             'user_id' => Auth::id(),
