@@ -21,12 +21,14 @@
                                 <h2>{{ $user->surname }} {{ $user->name }}</h2>
                             </div>
                             <div class="col-9">
+                                @role('Administrator')
                                 <div class="card-header border-bottom card-nav p-0">
                                     <ul class="nav">
                                         <li><a class="nav-link pt-3 pb-3 active" href="{{route('admin.user.show', $user->id)}}"><span class="fe-folder"></span>Otwarte projekty</a></li>
                                         <li><a class="nav-link pt-3 pb-3" href="{{route('admin.user.private', $user->id)}}"><span class="fe-briefcase"></span>Prywatne projekty</a></li>
                                     </ul>
                                 </div>
+                                @endrole
                                 <table class="table data-table mb-0 w-100" id="sortable">
                                     <thead class="thead-default">
                                     <tr>
