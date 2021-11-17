@@ -1031,12 +1031,6 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
     -moz-box-shadow: 0 0 12px 0 rgba(0,0,0,0.45);
     box-shadow: 0 0 12px 0 rgba(0,0,0,0.45);
 }
-.modal-footer > * {
-    margin:0
-}
-.modal-footer span {
-    font-size: 30px;
-}
 .modal-footer .btn, #jquery-wrapped-fine-uploader .btn {
     padding: 8px 23px;
     border-radius: 3px;
@@ -1077,6 +1071,15 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
     color: #fff;
     text-shadow: 0 0 0 #fff;
     opacity: 1;
+}
+
+.list-group-flush li {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px 0
+}
+.list-group-flush li:last-child {
+    border:0;
+    padding-bottom: 0;
 }
 
 /* Upload

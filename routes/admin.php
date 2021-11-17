@@ -41,7 +41,7 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'/admin', 'as' => 'admin.', 'mid
     // User
     Route::group(['prefix'=>'/user', 'as' => 'user.'], function() {
         Route::get('private/{user}', 'User\IndexController@private')->name('private');
-        Route::get('private/show/{project}', 'User\IndexController@privateshow')->name('private.show');
+        Route::get('private/show/{privateProject}', 'User\IndexController@privateshow')->name('private.show');
     });
 
 

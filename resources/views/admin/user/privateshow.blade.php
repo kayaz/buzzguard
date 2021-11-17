@@ -4,12 +4,12 @@
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-12">
-                <h2>{{$project->name}}</h2>
-                <h4 class="mb-5">Ilość postów: {{$project->posts()->count()}}</h4>
+                <h2>{{$privateProject->name}}</h2>
+                <h4 class="mb-5">Ilość postów: {{$privateProject->posts()->count()}}</h4>
             </div>
             <div class="col-6">
                 <div class="d-flex justify-content-start pb-3">
-                    <a href="{{route('admin.user.private', $project->user_id)}}" class="btn btn-lg btn-primary"><i class="fe-arrow-left"></i> Wróć</a>
+                    <a href="{{route('admin.user.private', $privateProject->user_id)}}" class="btn btn-lg btn-primary"><i class="fe-arrow-left"></i> Wróć</a>
                 </div>
             </div>
             <div class="col-12">
@@ -63,17 +63,17 @@
                             });
                         });
                         $(document).ready(function(){
-                            $('.data-table').DataTable({
+                            const t = $('.data-table').DataTable({
                                 processing: true,
-                                serverSide: true,
-                                searching: false,
+                                serverSide: false,
+                                responsive: true,
                                 language: {
-                                    "url": "/js/polish.json"
+                                    "url": "{{ asset('/js/polish.json') }}"
                                 },
                                 iDisplayLength: 30,
-                                ajax: "{{ route('admin.privatepost.user', $project->id) }}",
+                                ajax: "{{ route('admin.privatepost.user', $privateProject->id) }}",
                                 columns: [
-                                    {data: 'id', name: 'id'},
+                                    {data: null, defaultContent:''},
                                     {data: 'date', name: 'date'},
                                     {data: 'user_id', name: 'user_id'},
                                     {data: 'nick', name: 'nick'},
@@ -87,15 +87,14 @@
                                     {data: 'age_group', name: 'age_group'},
                                     {data: 'actions', name: 'actions'}
                                 ],
+                                bSort: false,
+                                columnDefs: [
+                                    {className: 'text-center', targets: [0, 1, 5, 6, 7, 8, 9, 10, 12]}
+                                ],
                                 "drawCallback": function() {
-                                    $('[data-toggle="tooltip"]').tooltip();
-                                    $('[data-toggle="tooltip"]').click(function () {
-                                        $('[data-toggle="tooltip"]').tooltip("hide");
-                                    });
-
-
                                     $(".show-modal").on("click", function () {
                                         const userid = $(this).data('id');
+                                        $('.data-table tr').removeClass('tr-opened');
                                         $(this).closest('tr').addClass('tr-opened');
                                         $.ajax({
                                             url: '{{ route('admin.privatepost.modal') }}',
@@ -111,14 +110,21 @@
 
                                                 const myModalEl = document.getElementById('empModal');
                                                 myModalEl.addEventListener('hidden.bs.modal', function () {
-                                                    $('.data-table tr').removeClass('tr-opened');
+                                                    $('.modal-backdrop').remove();
                                                 })
-
                                             }
                                         });
                                     });
                                 }
                             });
+                            t.on( 'order.dt search.dt', function () {
+                                const count = t.page.info().recordsDisplay;
+                                t.column(0, {
+                                    search:'applied',
+                                    order:'applied'}).nodes().each( function (cell, i) {
+                                    cell.innerHTML = count - i
+                                } );
+                            }).draw();
                         });
                     </script>
                 @endpush

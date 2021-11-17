@@ -68,17 +68,17 @@
                             });
                         });
                         $(document).ready(function(){
-                            $('.data-table').DataTable({
+                            const t = $('.data-table').DataTable({
                                 processing: true,
-                                serverSide: true,
-                                searching: false,
+                                serverSide: false,
+                                responsive: true,
                                 language: {
                                     "url": "/js/polish.json"
                                 },
                                 iDisplayLength: 30,
                                 ajax: "{{ route('admin.privatepost.show', $privateProject->id) }}",
                                 columns: [
-                                    {data: 'id', name: 'id'},
+                                    {data: null, defaultContent:''},
                                     {data: 'date', name: 'date'},
                                     {data: 'user_id', name: 'user_id'},
                                     {data: 'nick', name: 'nick'},
@@ -92,15 +92,14 @@
                                     {data: 'age_group', name: 'age_group'},
                                     {data: 'actions', name: 'actions'}
                                 ],
+                                bSort: false,
+                                columnDefs: [
+                                    {className: 'text-center', targets: [0, 1, 5, 6, 7, 8, 9, 10, 12]}
+                                ],
                                 "drawCallback": function() {
-                                    let $tooltipElement = jQuery('[data-toggle="tooltip"]');
-                                    $tooltipElement.tooltip();
-                                    $tooltipElement.click(function () {
-                                        $tooltipElement.tooltip("hide");
-                                    });
-
                                     $(".show-modal").on("click", function () {
                                         const userid = $(this).data('id');
+                                        $('.data-table tr').removeClass('tr-opened');
                                         $(this).closest('tr').addClass('tr-opened');
                                         $.ajax({
                                             url: '{{ route('admin.privatepost.modal') }}',
@@ -116,9 +115,8 @@
 
                                                 const myModalEl = document.getElementById('empModal');
                                                 myModalEl.addEventListener('hidden.bs.modal', function () {
-                                                    $('.data-table tr').removeClass('tr-opened');
+                                                    $('.modal-backdrop').remove();
                                                 })
-
                                             }
                                         });
                                     });
@@ -155,6 +153,14 @@
                                     });
                                 }
                             });
+                            t.on( 'order.dt search.dt', function () {
+                                const count = t.page.info().recordsDisplay;
+                                t.column(0, {
+                                    search:'applied',
+                                    order:'applied'}).nodes().each( function (cell, i) {
+                                    cell.innerHTML = count - i
+                                } );
+                            }).draw();
                         });
                     </script>
                 @endpush

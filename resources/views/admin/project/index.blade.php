@@ -19,6 +19,7 @@
                     <th class="colsearch">Autor</th>
                     <th class="colsearch">Nick</th>
                     <th class="text-center">Nowy wątek</th>
+                    <th class="colsearch">Tag</th>
                     <th class="colsearch">Domena</th>
                     <th>URL</th>
                     <th class="colsearch">Typ</th>
@@ -184,6 +185,7 @@
                                 {data: 'user_id', name: 'user_id'},
                                 {data: 'nick', name: 'nick'},
                                 {data: 'thread', name: 'thread'},
+                                {data: 'keyword', name: 'keyword'},
                                 {data: 'website', name: 'website'},
                                 {data: 'url', name: 'url'},
                                 {data: 'type', name: 'type'},
@@ -237,11 +239,6 @@
 
                             },
                             "drawCallback": function () {
-                                // $('[data-toggle="tooltip"]').tooltip();
-                                // $('[data-toggle="tooltip"]').click(function () {
-                                //     $('[data-toggle="tooltip"]').tooltip("hide");
-                                // });
-
                                 $(".confirmForm").click(function (d) {
                                     d.preventDefault();
                                     const c = $(this).closest("form");
@@ -292,7 +289,7 @@
 
                                             const myModalEl = document.getElementById('empModal');
                                             myModalEl.addEventListener('hidden.bs.modal', function () {
-
+                                                $('.modal-backdrop').remove();
                                             })
 
                                         }

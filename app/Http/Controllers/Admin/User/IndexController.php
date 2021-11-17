@@ -67,7 +67,6 @@ class IndexController extends Controller
     public function privateshow(MyProject $privateProject)
     {
         $this->authorize('privateProject', $privateProject);
-
         return view('admin.user.privateshow', ['privateProject' => $privateProject]);
     }
 
