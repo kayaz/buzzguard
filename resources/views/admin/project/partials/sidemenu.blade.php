@@ -48,7 +48,9 @@
                                 <div class="row">
                                     <div class="col-8">
                                         {{$u->name}} {{$u->surname}}
+                                        @if($u->client == 0)
                                         <div class="user-limit">(limit dzienny: {{ $u->pivot->limit }} / limit proj.: {{ $u->pivot->limit_project }})</div>
+                                        @endif
                                     </div>
                                     <div class="col-4 d-flex justify-content-end align-items-center">
                                         <div class="list-users-menu">

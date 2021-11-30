@@ -21,7 +21,7 @@ class IndexController extends Controller
 
     public function create(Project $project)
     {
-        $users = User::where('client', 0)->orderBy('name')->get(['surname', 'name', 'id']);
+        $users = User::orderBy('name')->get(['surname', 'name', 'id']);
 
         return view('admin.userproject.form', [
             'cardTitle' => 'Dodaj użytkownika',
@@ -43,7 +43,7 @@ class IndexController extends Controller
     public function edit($id, Project $project)
     {
         $entry = ProjectUser::find($id);
-        $users = User::where('client', 0)->orderBy('name')->get(['surname', 'name', 'id']);
+        $users = User::orderBy('name')->get(['surname', 'name', 'id']);
 
         return view('admin.userproject.form', [
             'cardTitle' => 'Edytuj użytkownika',

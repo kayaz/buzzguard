@@ -5,11 +5,18 @@
     <div class="row no-gutters">
         <div class="col-12">
             @include('admin.project.partials.topmenu')
-            <div class="d-flex justify-content-end pb-3">
-                <a href="{{ route('admin.project.post.create', $project) }}" class="btn btn-lg btn-primary btn-add-project">
-                    <i class="fe-file-plus"></i> Dodaj post
-                </a>
-            </div>
+            @role('Klient')
+                <div class="d-flex justify-content-end pb-3">
+
+                </div>
+            @else
+                <div class="d-flex justify-content-end pb-3">
+                    <a href="{{ route('admin.project.post.create', $project) }}" class="btn btn-lg btn-primary btn-add-project">
+                        <i class="fe-file-plus"></i> Dodaj post
+                    </a>
+                </div>
+            @endrole
+
             <table class="table data-table mb-0 w-100" id="sortable">
                 <thead class="thead-default">
                 <tr>
