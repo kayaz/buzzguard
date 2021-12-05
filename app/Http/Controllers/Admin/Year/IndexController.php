@@ -35,7 +35,12 @@ class IndexController extends Controller
 
     public function show(Year $year)
     {
-        $yearProjects = Project::with('client')->where('year', $year->year)->where('status', 1)->get();
+        $yearProjects = Project::with('client')
+            ->where('year', $year->year)
+            ->where('status', 1)
+            ->orderBy('month', 'desc')
+            ->get();
+
         return view('admin.year.show', [
             'yearprojects' => $yearProjects,
             'year' => $year
@@ -44,7 +49,11 @@ class IndexController extends Controller
 
     public function closed(Year $year)
     {
-        $yearProjects = Project::with('client')->where('year', $year->year)->where('status', 0)->get();
+        $yearProjects = Project::with('client')
+            ->where('year', $year->year)
+            ->where('status', 2)
+            ->orderBy('month', 'desc')
+            ->get();
 
         return view('admin.year.closed', [
             'yearprojects' => $yearProjects,

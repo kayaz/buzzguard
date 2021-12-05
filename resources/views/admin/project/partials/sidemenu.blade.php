@@ -49,7 +49,9 @@
                                     <div class="col-8">
                                         {{$u->name}} {{$u->surname}}
                                         @if($u->client == 0)
+                                        @hasanyrole('Administrator|Content Designer')
                                         <div class="user-limit">(limit dzienny: {{ $u->pivot->limit }} / limit proj.: {{ $u->pivot->limit_project }})</div>
+                                            @endhasallroles
                                         @endif
                                     </div>
                                     <div class="col-4 d-flex justify-content-end align-items-center">
@@ -120,7 +122,7 @@
                 <div id="jquery-wrapped-fine-uploader"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
             </div>
         </div>
     </div>
