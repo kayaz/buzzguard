@@ -278,6 +278,11 @@
                                     })
                                 });
 
+                                $(".data-table tr").on("click", function () {
+                                    $('.data-table tr').removeClass('tr-opened');
+                                    $(this).closest('tr').addClass('tr-opened');
+                                });
+
                                 $(".show-modal").on("click", function () {
                                     const userid = $(this).data('id');
                                     $('.data-table tr').removeClass('tr-opened');
