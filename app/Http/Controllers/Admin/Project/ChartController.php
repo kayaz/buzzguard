@@ -20,11 +20,14 @@ class ChartController extends Controller
 
         $sentiments = Post::where('project_id', '=', $project->id)->groupBy('sentiment')->selectRaw('count(*) as num, sentiment')->orderByDesc('num')->get('sentiment');
 
+        $tags = Post::where('project_id', '=', $project->id)->groupBy('keyword')->selectRaw('count(*) as num, keyword')->orderByDesc('num')->get('keyword');
+
         return view('admin.project.chart.index', [
             'project' => $project,
             'posts' => $posts,
             'domains' => $domains,
             'sentiments' => $sentiments,
+            'tags' => $tags,
             'start_project' => $start_project,
             'end_project' => $end_project
         ]);

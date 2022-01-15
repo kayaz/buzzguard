@@ -1250,13 +1250,14 @@ span.actionBtn {display:block;margin-right: 30px;padding: 8px 13px 7px;cursor:po
 .table td .badge {
     border-radius: 0;
     color: white;
-    font-size: 11px;
+    font-size: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: normal;
-    width: 120px;
-    margin: 0 auto
+    width: 80px;
+    margin: 0 auto;
+    height: 24px;
 }
 .badge.inwest-list-status-1 {background:green}
 .badge.inwest-list-status-2 {background:#940000}

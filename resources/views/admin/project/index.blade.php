@@ -205,7 +205,7 @@
                             bSort: false,
                             columnDefs: [
                                 {className: 'text-center', targets: [0, 1, 5, 6, 7, 8, 9, 10, 12]},
-                                {className: 'select-column', targets: [1, 2, 3, 4, 5, 6, 8, 10, 11]},
+                                {className: 'select-column', targets: [1, 2, 3, 4, 5, 6, 7, 10, 11]},
                             ],
                             initComplete: function () {
                                 this.api().columns('.select-column').every(function () {

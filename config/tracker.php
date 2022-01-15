@@ -206,7 +206,7 @@ return [
     /*
      * Do you wish to log HTTP referers?
      */
-    'log_referers' => true,
+    'log_referers' => false,
 
     /*
      * Do you wish to log url paths?

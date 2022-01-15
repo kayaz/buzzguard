@@ -7,23 +7,24 @@
                 @include('admin.project.partials.topmenu')
 
                 <div class="col-12">
-                    <h3 class="mt-4"><i class="fe-bar-chart-line-"></i> Liczba postów wg. dnia</h3>
+                    <h3 class="mt-4 mb-0"><i class="fe-bar-chart-line-"></i> Liczba postów wg. dnia</h3>
                     <div class="chart">
                         <div id="posty" style="width:auto;height:280px"></div>
                     </div>
-                </div>
 
-                <div class="col-12">
-                    <h3 class="mt-4"><i class="fe-bar-chart-line-"></i> Sentymenty</h3>
+                    <h3 class="mt-4 mb-0"><i class="fe-bar-chart-line-"></i> Sentymenty</h3>
                     <div class="chart">
-                        <div id="sentiments" style="width:auto;height:280px"></div>
+                        <div id="sentiments"></div>
                     </div>
-                </div>
 
-                <div class="col-12">
-                    <h3 class="mt-5"><i class="fe-bar-chart-line-"></i> Liczba postów wg. domeny</h3>
+                    <h3 class="mt-4 mb-0"><i class="fe-bar-chart-line-"></i> Słowa kluczowe</h3>
                     <div class="chart">
-                        <div id="domeny" style="width:auto;height:280px"></div>
+                        <div id="tags"></div>
+                    </div>
+
+                    <h3 class="mt-5 mb-0"><i class="fe-bar-chart-line-"></i> Liczba postów wg. domeny</h3>
+                    <div class="chart">
+                        <div id="domeny"></div>
                     </div>
                     <table class="table data-table mb-0 w-100 mt-4" id="sortable">
                         <thead class="thead-default">
@@ -48,6 +49,7 @@
     @push('scripts')
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
+
             google.load("visualization", "1", {packages:["corechart"]});
             google.setOnLoadCallback(drawChart);
 
@@ -80,32 +82,41 @@
                 };
                 chart.draw(data, options);
 
+                const chart_options = {
+                    colors: ['#00acc1'],
+                    chartArea: { width: "100%", height: "60%" }
+                };
+
                 let chart2_data = google.visualization.arrayToDataTable([
                     ['Źródło', 'Ilość wpisów'],
                     @foreach($domains as $d)
                     ['{{ $d->website }} ({{ $d->num }})', {{ $d->num }}],
                     @endforeach
                 ]);
-                const chart2_options = {
-                    colors: ['#00acc1'],
-                    chartArea: { width: "100%", height: "60%" }
-                };
                 const chart2_chart = new google.visualization.ColumnChart(document.getElementById('domeny'));
-                chart2_chart.draw(chart2_data, chart2_options);
+                chart2_chart.draw(chart2_data, chart_options);
 
                 // 1 => 'Pozytywny', 2 => 'Neutralny', 3 => 'Negatywny', 4 => 'Nieoceniony'
                 let chart3_data = google.visualization.arrayToDataTable([
                     ['Sentyment', 'Ilość wpisów'],
-                    @foreach($sentiments as $d)
-                    ['{{ sentiments($d->sentiment) }} ({{ $d->num }})', {{ $d->num }}],
+                    @foreach($sentiments as $s)
+                    ['{{ sentiments($s->sentiment) }} ({{ $s->num }})', {{ $s->num }}],
                     @endforeach
                 ]);
-                const chart3_options = {
-                    colors: ['#00acc1'],
-                    chartArea: { width: "100%", height: "60%" }
-                };
+
                 const chart3_chart = new google.visualization.ColumnChart(document.getElementById('sentiments'));
-                chart3_chart.draw(chart3_data, chart3_options);
+                chart3_chart.draw(chart3_data, chart_options);
+
+                let chart4_data = google.visualization.arrayToDataTable([
+                    ['Słowo kluczowe', 'Ilość wpisów'],
+                    @foreach($tags as $t)
+                    ['{{ $t->keyword }} ({{ $t->num }})', {{ $t->num }}],
+                    @endforeach
+                ]);
+
+                const chart4_chart = new google.visualization.ColumnChart(document.getElementById('tags'));
+                chart4_chart.draw(chart4_data, chart_options);
+
             }
         </script>
     @endpush
