@@ -3,7 +3,7 @@
 <ul class="list-unstyled list-group-flush">
     <li><b>Data</b>: {{ $date }}</li>
     <li><b>Nick</b>: {{ $nick }}</li>
-    <li><b>Tag</b>: {{ $keyword }}</li>
+    @if($keyword)<li><b>Tag</b>: {{ $keyword }}</li>@endif
     <li><b>Domena</b>: {{ $website }}</li>
     <li><b>URL</b>: <a href="{{ $url }}" target="_blank"><i class="fe-link"></i></a></li>
 </ul>
